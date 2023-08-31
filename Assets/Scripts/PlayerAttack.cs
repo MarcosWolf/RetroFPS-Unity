@@ -7,10 +7,16 @@ public class PlayerAttack : MonoBehaviour
 
     public Camera playerCamera;
 
+    // In a future update
+    // Get values from the current weapon selected
+    public int maxAmmo;
+    public int currentAmmo = 10;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -23,16 +29,24 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            Ray attackRay = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-            RaycastHit hitTarget;
-
-            if (Physics.Raycast(attackRay, out hitTarget))
+            if (currentAmmo > 0)
             {
-                Debug.Log("Target hitted: " + hitTarget.transform.name);
+                Ray attackRay = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+                RaycastHit hitTarget;
+                currentAmmo -= 1;
+
+                if (Physics.Raycast(attackRay, out hitTarget))
+                {
+                    Debug.Log("Target hitted: " + hitTarget.transform.name);
+                }
+                else
+                {
+                    Debug.Log("Nope");
+                }
             }
             else
             {
-                Debug.Log("Nope");
+                Debug.Log("Sem munição");
             }
         }
     }
