@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    public static PlayerControl instance;
+
     public Rigidbody2D playerRigidbody;
+
     public float playerSpeed;
 
     private Vector2 keyInput;
     private Vector2 mouseInput;
     public float mouseSensitivity;
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
