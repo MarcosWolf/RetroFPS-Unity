@@ -7,10 +7,15 @@ public class PlayerAttack : MonoBehaviour
 
     public Camera playerCamera;
 
+    public GameObject blood1;
+    public GameObject blood2;
+
     // In a future update
     // Get values from the current weapon selected
     public int maxAmmo;
     public int currentAmmo = 10;
+
+    private float AnimationRandom;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +42,19 @@ public class PlayerAttack : MonoBehaviour
 
                 if (Physics.Raycast(attackRay, out hitTarget))
                 {
+                    AnimationRandom = Random.value;
+
+                    if (AnimationRandom <= 0.5f)
+                    {
+                        Instantiate(blood1, hitTarget.point, hitTarget.transform.rotation);
+                    } else {
+                        Instantiate(blood2, hitTarget.point, hitTarget.transform.rotation);
+                    }
+
+
+
                     Debug.Log("Target hitted: " + hitTarget.transform.name);
+
                 }
                 else
                 {
