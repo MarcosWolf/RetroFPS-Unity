@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4783568465031108641}
   - component: {fileID: 5959653409250499896}
   - component: {fileID: 7914741579343946627}
+  - component: {fileID: 5789013481789121991}
   m_Layer: 0
   m_Name: Blood-1
   m_TagString: Untagged
@@ -27,13 +28,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8806528777227866635}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: 0.5}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.52, y: -0.35, z: -1}
-  m_LocalScale: {x: 2.6335, y: 2.6335, z: 2.6335}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!212 &4783568465031108641
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 200
   m_Sprite: {fileID: 21300000, guid: ca528c8c5a55ebc4fa15ce907d706db8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -119,3 +120,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc56806c6a66cfc48a8c3c424946e613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5789013481789121991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8806528777227866635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03dafef87968b5342b70195e22dd6e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeTime: 1
