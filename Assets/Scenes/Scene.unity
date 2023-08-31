@@ -234,6 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRigidbody: {fileID: 301073070}
   playerSpeed: 5
+  mouseSensitivity: 100
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
