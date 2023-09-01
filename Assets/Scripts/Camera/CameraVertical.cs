@@ -14,6 +14,7 @@ public class CameraVertical : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        rotationY = 90;
     }
 
     // Update is called once per frame
