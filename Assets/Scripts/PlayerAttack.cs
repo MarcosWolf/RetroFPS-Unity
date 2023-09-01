@@ -7,13 +7,19 @@ public class PlayerAttack : MonoBehaviour
 
     public Camera playerCamera;
 
+    public Animator weaponAnimator;
+
     public GameObject blood1;
     public GameObject blood2;
+
 
     // In a future update
     // Get values from the current weapon selected
     public int maxAmmo;
-    public int currentAmmo = 10;
+    public int totalAmmo;
+
+    public int currentAmmo;
+
 
     private float AnimationRandom;
 
@@ -34,11 +40,11 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
+            
             if (currentAmmo > 0)
             {
                 Ray attackRay = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
                 RaycastHit hitTarget;
-                currentAmmo -= 1;
 
                 if (Physics.Raycast(attackRay, out hitTarget))
                 {
@@ -60,10 +66,18 @@ public class PlayerAttack : MonoBehaviour
                 {
                     Debug.Log("Nope");
                 }
+
+                
+                weaponAnimator.SetTrigger("WeaponFire");
             }
             else
             {
-                Debug.Log("Sem munição");
+                if (totalAmmo > 0)
+                {
+                    Debug.Log("Recarregue a arma! Restando " + totalAmmo + " balas");
+                } else {
+                    Debug.Log("Sem munição");
+                }
             }
         }
     }
