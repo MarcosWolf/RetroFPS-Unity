@@ -5,12 +5,12 @@ using UnityEngine;
 public class WeaponControls : MonoBehaviour
 {
     public Weapon[] weapons;
-    private int currentWeaponIndex;
+    public int currentWeaponIndex;
 
     
     void Start()
     {
-        currentWeaponIndex = 1;    //Shotgun
+        SwitchWeapon(1);
     }
 
     // Update is called once per frame
@@ -32,6 +32,11 @@ public class WeaponControls : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             weapons[currentWeaponIndex].Shoot();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            weapons[currentWeaponIndex].Reload();
         }
     }
 
