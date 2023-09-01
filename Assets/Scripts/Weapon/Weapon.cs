@@ -19,7 +19,6 @@ public class Weapon : MonoBehaviour
     public TMP_Text weaponText;
 
 
-
     public Camera playerCamera;
     public Animator weaponAnimator;
 
@@ -63,6 +62,11 @@ public class Weapon : MonoBehaviour
                     else
                     {
                         Instantiate(blood2, hitTarget.point, hitTarget.transform.rotation);
+                    }
+
+                    if (hitTarget.transform.gameObject.CompareTag("Enemy"))
+                    {
+                        hitTarget.transform.gameObject.GetComponentInParent<EnemyController>().HitEnemy(weaponDamage);
                     }
                 }
 

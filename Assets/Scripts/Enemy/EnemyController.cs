@@ -22,6 +22,9 @@ public class EnemyController : MonoBehaviour
     public bool canMove;
     public bool hasAttacked;
 
+    public int totalEnemyHP;
+    public int currentEnemyHP;
+
     public float intervalBetweenPath;
     public float intervalCurrentTime;
 
@@ -35,8 +38,7 @@ public class EnemyController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        
+    { 
         checkDistance();
         moveEnemy();
     }
@@ -103,7 +105,7 @@ public class EnemyController : MonoBehaviour
 
     private void rangedAttackPlayer()
     {
-        if (!hasAttacked)
+        if (!hasAttacked && isAlive)
         {
             Instantiate(projectile, projectileOrigin.position, projectileOrigin.rotation);
             hasAttacked = true;
@@ -114,12 +116,37 @@ public class EnemyController : MonoBehaviour
 
     private void meleeAttackPlayer()
     {
-        Debug.Log("Atacando perto");
+        if (isAlive) {
+            Debug.Log("Atacando perto");
+        }
     }
 
     private void resetEnemyAttack()
     {
         hasAttacked = false;
+    }
+
+    public void HitEnemy(int enemyDamageTaken)
+    {
+        if (isAlive)
+        {
+            currentEnemyHP -= enemyDamageTaken;
+
+            if (currentEnemyHP <= 0)
+            {
+                isAlive = false;
+                onChase = false;
+                canMove = false;
+                Debug.Log("Imp morto");
+                //Animação de morte
+                DestroyEnemy();
+            }
+        }
+    }
+
+    public void DestroyEnemy()
+    {
+        //Destroy(this.gameObject);
     }
 
 }
