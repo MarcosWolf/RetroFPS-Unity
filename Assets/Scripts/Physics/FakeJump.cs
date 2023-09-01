@@ -8,14 +8,14 @@ public class FakeJump : MonoBehaviour
     public float jumpDuration = 0.5f; // Duração do pulo falso
 
     private bool isJumping = false;
-    private Vector3 originalPosition;
+    private float originalZPosition;
     private float jumpTimer = 0.0f;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        originalPosition = transform.position;
+        originalZPosition = transform.position.z;
     }
 
     // Update is called once per frame
@@ -23,6 +23,7 @@ public class FakeJump : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
+            //originalPosition = transform.position.z;
             // Iniciar o pulo falso
             isJumping = true;
             jumpTimer = 0.0f;
@@ -33,17 +34,20 @@ public class FakeJump : MonoBehaviour
             // Incrementar o temporizador do pulo
             jumpTimer += Time.deltaTime;
 
-            // Calcular a nova posição do jogador para o pulo falso
-            Vector3 jumpPosition = originalPosition + Vector3.back * jumpHeight * Mathf.Sin((jumpTimer / jumpDuration) * Mathf.PI);
+            // Calcular a nova posição Y do jogador para o pulo falso
+            float jumpZPosition = originalZPosition - jumpHeight * Mathf.Sin((jumpTimer / jumpDuration) * Mathf.PI);
 
-            // Atualizar a posição do jogador
-            transform.position = jumpPosition;
+            // Atualizar a posição do jogador apenas no eixo Y
+            Vector3 newPosition = transform.position;
+            newPosition.z = jumpZPosition;
+            transform.position = newPosition;
 
             // Verificar se o pulo falso terminou
             if (jumpTimer >= jumpDuration)
             {
                 isJumping = false;
-                transform.position = originalPosition; // Restaurar a posição original
+                newPosition.z = originalZPosition; // Definir a posição Y de volta ao chão
+                transform.position = newPosition;
             }
         }
     }
