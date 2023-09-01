@@ -383,7 +383,6 @@ GameObject:
   - component: {fileID: 301073068}
   - component: {fileID: 301073070}
   - component: {fileID: 301073071}
-  - component: {fileID: 301073072}
   - component: {fileID: 301073073}
   m_Layer: 0
   m_Name: Player
@@ -483,27 +482,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRigidbody: {fileID: 301073070}
+  cameraAnimator: {fileID: 815512434}
   playerSpeed: 5
   mouseSensitivity: 100
---- !u!114 &301073072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 301073067}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca669504cbee21943a2a77e37354e5fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerCamera: {fileID: 519420031}
-  weaponAnimator: {fileID: 384992791}
-  blood1: {fileID: 8806528777227866635, guid: 084aa0aa36e99114193007baed253efe, type: 3}
-  blood2: {fileID: 4856474486113306948, guid: bd3dc11aff8690a48942e9a25088e566, type: 3}
-  maxAmmo: 60
-  totalAmmo: 60
-  currentAmmo: 0
 --- !u!114 &301073073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,6 +501,7 @@ MonoBehaviour:
   - {fileID: 1556352864}
   - {fileID: 384992792}
   - {fileID: 1568776160}
+  currentWeaponIndex: 1
 --- !u!1 &384992787
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,9 +614,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Shotgun
   weaponDamage: 0
-  currentAmmo: 30
-  totalAmmo: 0
+  currentAmmo: 8
+  totalAmmo: 12
+  ammoPerRound: 8
   maxAmmo: 0
+  ammoText: {fileID: 1102080442}
+  weaponText: {fileID: 589417038}
   playerCamera: {fileID: 519420031}
   weaponAnimator: {fileID: 384992791}
   blood1: {fileID: 8806528777227866635, guid: 084aa0aa36e99114193007baed253efe, type: 3}
@@ -780,7 +765,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.18111429, g: 0.310364, b: 0.6981132, a: 0}
+  m_BackGroundColor: {r: 0.16580634, g: 0.32627898, b: 0.509434, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -836,83 +821,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 301073069}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: -90}
---- !u!1 &540974589
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 540974590}
-  - component: {fileID: 540974592}
-  - component: {fileID: 540974591}
-  m_Layer: 5
-  m_Name: Hud
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &540974590
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 540974589}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1102080441}
-  - {fileID: 589417037}
-  m_Father: {fileID: 1835347949}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 150.0893, y: 28.078186}
-  m_SizeDelta: {x: 302.1785, y: 59.0864}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &540974591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 540974589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.69411767}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &540974592
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 540974589}
-  m_CullTransparentMesh: 1
 --- !u!1 &589417036
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,7 +833,7 @@ GameObject:
   - component: {fileID: 589417039}
   - component: {fileID: 589417038}
   m_Layer: 5
-  m_Name: WeaponName
+  m_Name: WeaponText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -938,17 +846,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 589417036}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.0021622898, y: -0.027403546, z: 0.078631215, w: 0.99652475}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 540974590}
+  m_Father: {fileID: 1835347949}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 55.6}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -802.8, y: -396.6}
+  m_SizeDelta: {x: 200, y: 103.0627}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &589417038
 MonoBehaviour:
@@ -970,10 +878,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Shotgun
+  m_text: Pistol
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3a7fefc24f6b8964abf67a3f442b62c2, type: 2}
+  m_sharedMaterial: {fileID: 984441837672919717, guid: 3a7fefc24f6b8964abf67a3f442b62c2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -997,14 +905,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.75
-  m_fontSizeBase: 36
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_fontStyle: 32
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1033,7 +941,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -39.78656, y: 0, z: -50.91388, w: 0}
+  m_margin: {x: -39.78656, y: -0.07836914, z: -50.91388, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1244,6 +1152,7 @@ GameObject:
   - component: {fileID: 815512431}
   - component: {fileID: 815512433}
   - component: {fileID: 815512432}
+  - component: {fileID: 815512434}
   m_Layer: 5
   m_Name: WeaponPanel
   m_TagString: Untagged
@@ -1311,6 +1220,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815512430}
   m_CullTransparentMesh: 1
+--- !u!95 &815512434
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815512430}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cfd5a008ec573164596d0fdd07827f69, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1077412853
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,7 +1287,7 @@ GameObject:
   - component: {fileID: 1102080443}
   - component: {fileID: 1102080442}
   m_Layer: 5
-  m_Name: Ammo
+  m_Name: AmmoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1370,17 +1300,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1102080440}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.0021622898, y: -0.027403546, z: 0.078631215, w: 0.99652475}
+  m_LocalPosition: {x: 0, y: 0, z: 1.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 540974590}
+  m_Father: {fileID: 1835347949}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -781.6, y: -466.7}
+  m_SizeDelta: {x: 200, y: 48.2248}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1102080442
 MonoBehaviour:
@@ -1402,10 +1332,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 14/14
+  m_text: 0/0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3a7fefc24f6b8964abf67a3f442b62c2, type: 2}
+  m_sharedMaterial: {fileID: 984441837672919717, guid: 3a7fefc24f6b8964abf67a3f442b62c2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1429,10 +1359,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44.75
-  m_fontSizeBase: 50
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -1465,7 +1395,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -50.483566, y: 0, z: -51.375946, w: 0}
+  m_margin: {x: -50.483566, y: -31.516891, z: -51.375946, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1646,7 +1576,10 @@ MonoBehaviour:
   weaponDamage: 0
   currentAmmo: 0
   totalAmmo: 0
+  ammoPerRound: 12
   maxAmmo: 0
+  ammoText: {fileID: 1102080442}
+  weaponText: {fileID: 589417038}
   playerCamera: {fileID: 519420031}
   weaponAnimator: {fileID: 0}
   blood1: {fileID: 8806528777227866635, guid: 084aa0aa36e99114193007baed253efe, type: 3}
@@ -1695,11 +1628,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c948a2e0ee47ef4bb018a67decf1385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: Submachine
+  weaponName: Smg
   weaponDamage: 0
   currentAmmo: 0
   totalAmmo: 0
+  ammoPerRound: 35
   maxAmmo: 0
+  ammoText: {fileID: 1102080442}
+  weaponText: {fileID: 589417038}
   playerCamera: {fileID: 519420031}
   weaponAnimator: {fileID: 0}
   blood1: {fileID: 8806528777227866635, guid: 084aa0aa36e99114193007baed253efe, type: 3}
@@ -1819,7 +1755,8 @@ RectTransform:
   m_Children:
   - {fileID: 815512431}
   - {fileID: 299483048}
-  - {fileID: 540974590}
+  - {fileID: 1102080441}
+  - {fileID: 589417037}
   m_Father: {fileID: 725759071}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

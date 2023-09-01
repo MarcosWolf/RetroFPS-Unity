@@ -8,6 +8,8 @@ public class PlayerControl : MonoBehaviour
 
     public Rigidbody2D playerRigidbody;
 
+    public Animator cameraAnimator;
+
     public float playerSpeed;
 
     private Vector2 keyInput;
@@ -40,6 +42,15 @@ public class PlayerControl : MonoBehaviour
         Vector3 verticalMovement = transform.right * keyInput.y;
         
         playerRigidbody.velocity = (horizontalMovement + verticalMovement) * playerSpeed;
+
+        if (playerRigidbody.velocity.magnitude == 0)
+        {
+            cameraAnimator.Play("IdleCamera");
+        }
+        else
+        {
+            cameraAnimator.Play("MovingCamera");
+        }
 
     }
 
