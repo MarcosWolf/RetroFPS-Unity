@@ -380,10 +380,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 301073069}
-  - component: {fileID: 301073071}
   - component: {fileID: 301073073}
   - component: {fileID: 301073075}
   - component: {fileID: 301073074}
+  - component: {fileID: 301073078}
+  - component: {fileID: 301073079}
+  - component: {fileID: 301073077}
   - component: {fileID: 301073076}
   m_Layer: 0
   m_Name: Player
@@ -408,19 +410,6 @@ Transform:
   - {fileID: 519420032}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 1.97, z: 0}
---- !u!114 &301073071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 301073067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e52f3d9bbe2b37439bf9478d3bd7b0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sensitivity: 2
 --- !u!114 &301073073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,7 +502,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpHeight: 1
-  jumpDuration: 0.5
+  jumpDuration: 1
+--- !u!114 &301073077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301073067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd9c5eca84d1ca24cbfb4606afe22103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensitivity: 2
+--- !u!114 &301073078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301073067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e52f3d9bbe2b37439bf9478d3bd7b0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &301073079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301073067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa87ed18b7f9adb4fba17b822283c854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
 --- !u!1 &384992787
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,7 +870,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13160888a7997524397bafeb08bc9628, type: 3}
+  m_Script: {fileID: 11500000, guid: 2db78a866fa913548834c0434f350a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sensitivity: 2
