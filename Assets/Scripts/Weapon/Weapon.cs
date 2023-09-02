@@ -92,13 +92,11 @@ public class Weapon : MonoBehaviour
         if (totalAmmo < maxAmmo)
         {
             int ammoToAdd = Mathf.Min(ammoAmount, maxAmmo - totalAmmo);
-            Debug.Log(ammoToAdd);
             totalAmmo += ammoToAdd;
             return true;
         }
         else
         {
-            Debug.Log("Don't Destroy");
             return false;
         }
     }

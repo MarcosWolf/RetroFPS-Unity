@@ -42,7 +42,7 @@ public class ItemsController : MonoBehaviour
             // Ammo
             if (shotgunAmmoItem == true)
             {
-                if (weaponControls.getAmmo(1, 12)) {
+                if (weaponControls.getAmmo(1, shotgunAmmoAmount)) {
                     Destroy(this.gameObject);
                 } else {
                     Debug.Log("Munição cheia");
@@ -52,7 +52,11 @@ public class ItemsController : MonoBehaviour
             // Health
             if (medicalKitItem == true)
             {
-                Debug.Log("Curando");
+                if (PlayerControl.instance.HealPlayer(medicalKitAmount)) {
+                    Destroy(this.gameObject);
+                } else {
+                    Debug.Log("Vida cheia");
+                }
             }
 
             // Keys
