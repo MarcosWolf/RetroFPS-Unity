@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class Weapon : MonoBehaviour
 {
@@ -11,13 +10,10 @@ public class Weapon : MonoBehaviour
     public int totalAmmo;
     public int ammoPerRound;
     public int maxAmmo;
-    
+
+    public bool isUnlocked;
+
     private bool isReloading = false;
-
-    // Hud
-    public TMP_Text ammoText;
-    public TMP_Text weaponText;
-
 
     public Camera playerCamera;
     public Animator weaponAnimator;
@@ -29,18 +25,10 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
-        
     }
 
     void Update()
     {
-        UpdateHud();
-    }
-    
-    public void UpdateHud()
-    {
-        weaponText.text = weaponName;
-        ammoText.text = currentAmmo + "/" + totalAmmo;
     }
 
     public void Shoot()
@@ -97,6 +85,17 @@ public class Weapon : MonoBehaviour
         currentAmmo += ammoUsed;
         totalAmmo -= ammoUsed;
         isReloading = false;
-        UpdateHud();
+    }
+
+    public void GetAmmo(int ammoAmount)
+    {
+        if (totalAmmo + ammoAmount <= maxAmmo)
+        {
+            totalAmmo = totalAmmo + ammoAmount;
+        }
+        else
+        {
+            Debug.Log("Don't Destroy");
+        }
     }
 }
