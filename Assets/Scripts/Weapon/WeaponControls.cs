@@ -51,9 +51,10 @@ public class WeaponControls : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            weapons[0].GetAmmo(159);
+            weapons[currentWeaponIndex].GetAmmo(12);
         }
     }
+
 
     private void UpdateHud()
     {
@@ -74,9 +75,17 @@ public class WeaponControls : MonoBehaviour
                 } else {
                     Debug.Log("Arma bloqueada ");
                 }
-
-                Debug.Log("Mesma arma lol");
             }
+        }
+    }
+
+    public bool getAmmo(int weapon, int ammoAmount)
+    {
+        if (weapons[weapon].GetAmmo(ammoAmount))
+        {
+            return true;
+        } else {
+            return false;
         }
     }
 }
