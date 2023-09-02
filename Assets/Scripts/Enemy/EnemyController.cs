@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    public Animator enemyAnimator;
+
     public float enemySpeed;
     public Transform[] enemyPath; 
     public int currentPath;
@@ -19,6 +21,7 @@ public class EnemyController : MonoBehaviour
     public bool onChase;
 
     public bool isAlive;
+    public bool isIdle;
     public bool canMove;
     public bool hasAttacked;
 
@@ -32,6 +35,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         isAlive = true;
+        isIdle = false;
         canMove = true;
         onChase = false;
     }
@@ -47,20 +51,29 @@ public class EnemyController : MonoBehaviour
     {
         if (isAlive)
         {
-            if (canMove && onChase) {
-                transform.position = Vector2.MoveTowards(transform.position, PlayerControl.instance.transform.position, enemySpeed * Time.deltaTime);
-            }
-            else {
-                transform.position = Vector2.MoveTowards(transform.position, enemyPath[currentPath].position, enemySpeed * Time.deltaTime);
-
-                if (transform.position.y == enemyPath[currentPath].position.y )
-                {
-                    idleEnemy();
+            if (canMove) {
+                if (onChase) {
+                    transform.position = Vector2.MoveTowards(transform.position, PlayerControl.instance.transform.position, enemySpeed * Time.deltaTime);
+                    enemyAnimator.SetTrigger("EnemyWalk");
                 }
+                else {
+                    transform.position = Vector2.MoveTowards(transform.position, enemyPath[currentPath].position, enemySpeed * Time.deltaTime);
 
-                if (currentPath == enemyPath.Length)
-                {
-                    currentPath = 0;
+                    if (transform.position.y != enemyPath[currentPath].position.y )
+                    {
+                        enemyAnimator.SetTrigger("EnemyWalk");
+                    }
+
+                    if (transform.position.y == enemyPath[currentPath].position.y )
+                    {
+                        enemyAnimator.SetTrigger("EnemyIdle");
+                        idleEnemy();
+                    }
+
+                    if (currentPath == enemyPath.Length)
+                    {
+                        currentPath = 0;
+                    }
                 }
             }
         }
@@ -68,15 +81,18 @@ public class EnemyController : MonoBehaviour
 
     private void idleEnemy()
     {
-        canMove = false;
+        //canMove = false;
+        enemyAnimator.SetTrigger("EnemyIdle");
 
         intervalCurrentTime -= Time.deltaTime;
 
         if (intervalCurrentTime <= 0)
         {
             canMove = true;
+            isIdle = false;
             currentPath++;
             intervalCurrentTime = intervalBetweenPath;
+            enemyAnimator.SetTrigger("EnemyWalk");
         }
     }
 
@@ -107,6 +123,7 @@ public class EnemyController : MonoBehaviour
     {
         if (!hasAttacked && isAlive)
         {
+            enemyAnimator.SetTrigger("EnemyAttack");
             Instantiate(projectile, projectileOrigin.position, projectileOrigin.rotation);
             hasAttacked = true;
 
@@ -130,6 +147,7 @@ public class EnemyController : MonoBehaviour
     {
         if (isAlive)
         {
+            enemyAnimator.SetTrigger("EnemyHit");
             currentEnemyHP -= enemyDamageTaken;
 
             if (currentEnemyHP <= 0)
@@ -137,6 +155,7 @@ public class EnemyController : MonoBehaviour
                 isAlive = false;
                 onChase = false;
                 canMove = false;
+                enemyAnimator.SetTrigger("EnemyDead");
                 Debug.Log("Imp morto");
                 //Animação de morte
                 DestroyEnemy();
