@@ -80,7 +80,7 @@ Transform:
   m_GameObject: {fileID: 6705265365994682631}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.165, y: -0.02, z: 0}
+  m_LocalPosition: {x: 0.141, y: -0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -115,8 +115,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7121284092504941214}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.1, y: 12.8, z: -0.5}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.55, y: 9.030001, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -167,7 +167,7 @@ SpriteRenderer:
   m_SortingOrder: 9
   m_Sprite: {fileID: 21300000, guid: 0683d1295158df046ac51432a4210644, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.49, y: 0.6}
@@ -239,14 +239,12 @@ MonoBehaviour:
   enemySpeed: 3
   enemyPath:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   currentPath: 0
   projectileOrigin: {fileID: 5496701571750788551}
   projectile: {fileID: 5768171187892020187, guid: 293a89c0aab9a7e4597af6413593d4fd, type: 3}
   meleeAttackDistance: 5
-  rangedAttackDistance: 20
-  chasePlayerDistance: 25
+  rangedAttackDistance: 30
+  chasePlayerDistance: 35
   attackDelay: 2
   onChase: 0
   isAlive: 1

@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class WeaponControls : MonoBehaviour
 {
     public Weapon[] weapons;
     public int currentWeaponIndex;
 
+    // Hud
+    public TMP_Text ammoText;
+    public TMP_Text weaponText;
     
     void Start()
     {
-        SwitchWeapon(1);
+        //SwitchWeapon(1);
     }
 
     // Update is called once per frame
     void Update()
     {
+        UpdateHud();
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SwitchWeapon(0);
@@ -28,6 +34,10 @@ public class WeaponControls : MonoBehaviour
         {
             SwitchWeapon(2);
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SwitchWeapon(3);
+        }
 
         if (Input.GetButtonDown("Fire1"))
         {
@@ -38,15 +48,35 @@ public class WeaponControls : MonoBehaviour
         {
             weapons[currentWeaponIndex].Reload();
         }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            weapons[0].GetAmmo(159);
+        }
+    }
+
+    private void UpdateHud()
+    {
+        weaponText.text = weapons[currentWeaponIndex].weaponName;
+        ammoText.text = weapons[currentWeaponIndex].currentAmmo + "/" + weapons[currentWeaponIndex].totalAmmo;
     }
 
     private void SwitchWeapon(int newWeaponIndex)
     {
         if (newWeaponIndex >= 0 && newWeaponIndex < weapons.Length)
         {
-            weapons[currentWeaponIndex].gameObject.SetActive(false);
-            currentWeaponIndex = newWeaponIndex;
-            weapons[currentWeaponIndex].gameObject.SetActive(true);
+            if (currentWeaponIndex != newWeaponIndex)
+            {
+                if (weapons[newWeaponIndex].isUnlocked) {
+                    weapons[currentWeaponIndex].gameObject.SetActive(false);
+                    currentWeaponIndex = newWeaponIndex;
+                    weapons[currentWeaponIndex].gameObject.SetActive(true);
+                } else {
+                    Debug.Log("Arma bloqueada ");
+                }
+
+                Debug.Log("Mesma arma lol");
+            }
         }
     }
 }
