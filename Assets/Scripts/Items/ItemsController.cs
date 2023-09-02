@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemsController : MonoBehaviour
 {
-    public Weapon[] weapons;
+    private WeaponControls weaponControls;
 
     // AMMO
     public bool shotgunAmmoItem;
@@ -27,13 +27,12 @@ public class ItemsController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        weaponControls = FindObjectOfType<WeaponControls>();
     }
 
     // Update is called once per frame
     void Update()
-    {
-        
+    {        
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -43,8 +42,11 @@ public class ItemsController : MonoBehaviour
             // Ammo
             if (shotgunAmmoItem == true)
             {
-                //weapons[1].GetAmmo(shotgunAmmoAmount);
-                weapons[0].GetAmmo(159);
+                if (weaponControls.getAmmo(1, 12)) {
+                    Destroy(this.gameObject);
+                } else {
+                    Debug.Log("Munição cheia");
+                }
             }
 
             // Health
@@ -70,7 +72,5 @@ public class ItemsController : MonoBehaviour
             }
         }
 
-
-        Destroy(this.gameObject);
     }
 }

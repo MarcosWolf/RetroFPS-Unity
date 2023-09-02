@@ -87,15 +87,19 @@ public class Weapon : MonoBehaviour
         isReloading = false;
     }
 
-    public void GetAmmo(int ammoAmount)
+    public bool GetAmmo(int ammoAmount)
     {
-        if (totalAmmo + ammoAmount <= maxAmmo)
+        if (totalAmmo < maxAmmo)
         {
-            totalAmmo = totalAmmo + ammoAmount;
+            int ammoToAdd = Mathf.Min(ammoAmount, maxAmmo - totalAmmo);
+            Debug.Log(ammoToAdd);
+            totalAmmo += ammoToAdd;
+            return true;
         }
         else
         {
             Debug.Log("Don't Destroy");
+            return false;
         }
     }
 }
