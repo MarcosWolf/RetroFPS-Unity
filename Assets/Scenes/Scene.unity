@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 191234811}
   - component: {fileID: 191234810}
   - component: {fileID: 191234812}
+  - component: {fileID: 191234813}
   m_Layer: 0
   m_Name: Imp
   m_TagString: Enemy
@@ -271,6 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5732c523ee9c2c5449dbe7759b9140e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyAnimator: {fileID: 191234813}
   enemySpeed: 3
   enemyPath:
   - {fileID: 1290761755}
@@ -291,6 +293,27 @@ MonoBehaviour:
   currentEnemyHP: 200
   intervalBetweenPath: 3
   intervalCurrentTime: 3
+--- !u!95 &191234813
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191234807}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 90a86dfbfaaff454ba3f96e27d285368, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &204087600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1996,7 +2019,7 @@ Transform:
   m_GameObject: {fileID: 2129814549}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.163, y: -0.042, z: 0}
+  m_LocalPosition: {x: -0.165, y: -0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
