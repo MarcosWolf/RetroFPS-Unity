@@ -551,7 +551,7 @@ MonoBehaviour:
   currentAmmo: 8
   totalAmmo: 64
   ammoPerRound: 8
-  maxAmmo: 0
+  maxAmmo: 64
   isUnlocked: 1
   playerCamera: {fileID: 519420031}
   weaponAnimator: {fileID: 384992791}
@@ -1450,7 +1450,7 @@ MonoBehaviour:
   totalAmmo: 0
   ammoPerRound: 12
   maxAmmo: 0
-  isUnlocked: 1
+  isUnlocked: 0
   playerCamera: {fileID: 519420031}
   weaponAnimator: {fileID: 0}
   blood1: {fileID: 8806528777227866635, guid: 084aa0aa36e99114193007baed253efe, type: 3}
@@ -1543,7 +1543,7 @@ MonoBehaviour:
   - {fileID: 1556352864}
   - {fileID: 384992792}
   - {fileID: 1568776160}
-  currentWeaponIndex: 0
+  currentWeaponIndex: 1
   ammoText: {fileID: 1102080442}
   weaponText: {fileID: 589417038}
 --- !u!4 &1580670236

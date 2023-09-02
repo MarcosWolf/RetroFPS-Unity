@@ -40,7 +40,6 @@ public class PlayerControl : MonoBehaviour
     {
         if (GameManager.instance.isPlayerAlive == true)
         {
-            Debug.Log("Oi");
             playerCurrentHP -= playerDamageTaken;
 
             if (playerCurrentHP <= 0)
@@ -48,6 +47,26 @@ public class PlayerControl : MonoBehaviour
                 playerCurrentHP = 0;
                 GameManager.instance.GameOver();
             }
+        }
+    }
+
+    public bool HealPlayer(int healAmount)
+    {
+        if (GameManager.instance.isPlayerAlive == true)
+        {
+            if (playerCurrentHP < playerTotalHP)
+            {
+                int healToAdd = Mathf.Min(healAmount, playerTotalHP - playerCurrentHP);
+                playerCurrentHP += healToAdd;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else {
+            return false;
         }
     }
 
