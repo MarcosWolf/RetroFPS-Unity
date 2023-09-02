@@ -62,17 +62,30 @@ public class ItemsController : MonoBehaviour
             // Keys
             if (blueKeyItem == true)
             {
+                if (GameManager.instance.getKey(0)) {
+                    Destroy(this.gameObject);
+                } else {
+                    Debug.Log("Você já tem um cartão azul");
+                }
 
             }
 
             if (yellowKeyItem == true)
             {
-
+                if (GameManager.instance.getKey(1)) {
+                    Destroy(this.gameObject);
+                } else {
+                    Debug.Log("Você já tem um cartão amarelo");
+                }
             }
 
             if (redKeyItem == true)
             {
-
+                if (GameManager.instance.getKey(2)) {
+                    Destroy(this.gameObject);
+                } else {
+                    Debug.Log("Você já tem um cartão vermelho");
+                }
             }
         }
 
