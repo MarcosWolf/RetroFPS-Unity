@@ -6,21 +6,26 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public bool playerIsAlive;
+    public bool isPlayerAlive;
     
-    void Wake()
+    void Awake()
     {
         instance = this;
     }
 
     void Start()
     {
-        
+        isPlayerAlive = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+    }
+
+    public void GameOver()
+    {
+        isPlayerAlive = false;
+        Debug.Log("Game Over! Você morreu.");
     }
 }
