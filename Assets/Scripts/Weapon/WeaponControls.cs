@@ -47,6 +47,7 @@ public class WeaponControls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             weapons[currentWeaponIndex].Reload();
+            //StartCoroutine(weapons[currentWeaponIndex].Reload());
         }
 
         if (Input.GetKeyDown(KeyCode.K))
