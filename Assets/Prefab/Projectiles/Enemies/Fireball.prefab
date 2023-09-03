@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68b70f6800fc6f54e94735fc8cc3f83a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedProjectile: 15
+  speedProjectile: 30
   damageProjectile: 15
 --- !u!114 &98637699843160016
 MonoBehaviour:
