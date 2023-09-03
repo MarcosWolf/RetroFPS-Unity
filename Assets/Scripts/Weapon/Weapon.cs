@@ -11,6 +11,9 @@ public class Weapon : MonoBehaviour
     public int ammoPerRound;
     public int maxAmmo;
 
+    private float lastShotTime = 0f;
+    public float timeBetweenShots;
+
     public bool isUnlocked;
 
     private bool isReloading = false;
@@ -36,8 +39,12 @@ public class Weapon : MonoBehaviour
 
     public void Shoot()
     {
-        if (!isReloading)
+        if (Time.time - lastShotTime >= timeBetweenShots)
         {
+            if (isReloading) {
+                isReloading = false;
+            }
+
             if (currentAmmo > 0) {
                 //Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
                 Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
@@ -75,6 +82,7 @@ public class Weapon : MonoBehaviour
                     }
                 }
 
+                lastShotTime = Time.time;
                 currentAmmo--;
                 weaponAnimator.SetTrigger("WeaponFire");
             }
