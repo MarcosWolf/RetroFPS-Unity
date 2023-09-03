@@ -18,6 +18,9 @@ public class Weapon : MonoBehaviour
     public Camera playerCamera;
     public Animator weaponAnimator;
 
+    public GameObject projectilePrefab;
+    public float projectileSpeed;
+
     public GameObject blood1;
     public GameObject blood2;
 
@@ -36,11 +39,25 @@ public class Weapon : MonoBehaviour
         if (!isReloading)
         {
             if (currentAmmo > 0) {
-                Ray attackRay = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+                //Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+                Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
                 RaycastHit hitTarget;
+                
+                Vector3 shootDirection = ray.direction.normalized;
+                Vector3 playerPosition = PlayerControl.instance.transform.position;
 
-                if (Physics.Raycast(attackRay, out hitTarget))
-                {
+                // Calcula a posição de início do projetil, que é a posição do jogador
+                Vector3 spawnPosition = playerPosition;
+
+                // Instancia o projetil na posição do jogador
+                GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
+
+                // Obtém o componente Rigidbody do projetil e define a velocidade
+                Rigidbody rb = projectile.GetComponent<Rigidbody>();
+                rb.velocity = shootDirection * projectileSpeed;                          
+
+                if (Physics.Raycast(ray, out hitTarget))
+                {                    
                     AnimationRandom = Random.value;
 
                     if (AnimationRandom <= 0.5f)
@@ -73,9 +90,48 @@ public class Weapon : MonoBehaviour
         if (!isReloading && currentAmmo < ammoPerRound && totalAmmo > 0)
         {
             isReloading = true;
-            weaponAnimator.SetTrigger("WeaponReload");            
-            Debug.Log("Carregando");
+            weaponAnimator.SetBool("WeaponReloaded", false);
+
+            if (weaponName == "Shotgun")
+            {
+                weaponAnimator.SetBool("WeaponReloaded", false);
+                weaponAnimator.SetTrigger("WeaponReload");
+
+            } else {
+                weaponAnimator.SetTrigger("WeaponReload");            
+            }
             
+        }
+    }
+
+    public void ShotgunReload()
+    {
+        int ammoRemaining = ammoPerRound - currentAmmo;
+        int ammoMissing = totalAmmo - ammoRemaining;
+
+        if (ammoMissing >= 1)
+        {
+            currentAmmo++;
+            totalAmmo--;
+
+            Debug.Log("Total no pente:" + currentAmmo);
+        } else {
+            Debug.Log("Sem munição suficiente");
+            weaponAnimator.SetBool("WeaponReloaded", true);
+            isReloading = false;
+        }
+
+        if (currentAmmo >= ammoPerRound)
+        {
+            Debug.Log("Pente cheio =)");
+            weaponAnimator.SetBool("WeaponReloaded", true);
+            isReloading = false;
+        }
+        else if (totalAmmo == 0)
+        {
+            Debug.Log("Sem mais balas, amigo");
+            weaponAnimator.SetBool("WeaponReloaded", true);
+            isReloading = false;
         }
     }
 
