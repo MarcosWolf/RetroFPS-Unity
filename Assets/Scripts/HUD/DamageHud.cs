@@ -8,7 +8,6 @@ public class DamageHud : MonoBehaviour
     private Image panelImage;
     private Color originalColor;
     public bool isFlashing = false;
-
     public float flashDuration = 0.1f;
 
     // Start is called before the first frame update
@@ -20,7 +19,8 @@ public class DamageHud : MonoBehaviour
 
     public void Flash()
     {
-            StartCoroutine(FlashEffect());
+        UIManager.instance.SpawnBloodHud();
+        StartCoroutine(FlashEffect());
 
     }
 
