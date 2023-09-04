@@ -17,6 +17,7 @@ public class Weapon : MonoBehaviour
     public bool isUnlocked;
 
     private bool isReloading = false;
+    private bool pumpReload;
 
     public Camera playerCamera;
     public Animator weaponAnimator;
@@ -83,6 +84,7 @@ public class Weapon : MonoBehaviour
                         }
                     }
 
+                    pumpReload = false;
                     lastShotTime = Time.time;
                     currentAmmo--;
                     SoundEffects.instance.sfxShotgunFire();
@@ -107,6 +109,7 @@ public class Weapon : MonoBehaviour
                 {
                     weaponAnimator.SetBool("WeaponReloaded", false);
                     weaponAnimator.SetTrigger("WeaponReload");
+                    pumpReload = true;
 
                 } else {
                     weaponAnimator.SetTrigger("WeaponReload");            
@@ -147,37 +150,6 @@ public class Weapon : MonoBehaviour
             weaponAnimator.SetBool("WeaponReloaded", true);
             isReloading = false;
         }
-    
-        
-
-        /*
-        if (currentAmmo < ammoPerRound && totalAmmo > 0)
-        {
-            currentAmmo++;
-            totalAmmo--;
-
-            if (totalAmmo > 0)
-            {
-                weaponAnimator.SetBool("WeaponReloaded", false);
-                isReloading = true;
-            }
-            else
-            {
-                weaponAnimator.SetBool("WeaponReloaded", true);
-                isReloading = false;
-            }
-        }
-        else if (currentAmmo == ammoPerRound)
-        {
-            weaponAnimator.SetBool("WeaponReloaded", true);
-            isReloading = false;
-        }
-        else
-        {
-            weaponAnimator.SetBool("WeaponReloaded", true);
-            isReloading = false;
-        }
-        */
     }
 
     private void sfxShotgunReload()
@@ -188,6 +160,10 @@ public class Weapon : MonoBehaviour
     private void sfxShotgunPump()
     {
         SoundEffects.instance.sfxShotgunPump();
+
+        if (!pumpReload) {
+            UIManager.instance.SpawnFallingObject();
+        }
     }
 
     public void ReloadIsOver()

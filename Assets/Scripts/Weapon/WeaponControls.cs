@@ -54,6 +54,11 @@ public class WeaponControls : MonoBehaviour
         {
             weapons[currentWeaponIndex].GetAmmo(12);
         }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            
+        }
     }
 
 
