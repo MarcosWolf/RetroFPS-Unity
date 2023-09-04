@@ -57,7 +57,7 @@ public class WeaponControls : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            
+            UIManager.instance.SpawnBulletCasing();
         }
     }
 
