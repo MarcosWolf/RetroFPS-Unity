@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    private WeaponControls weaponControls;
+
     public bool isPlayerAlive;
 
     public bool hasBlueKey;
@@ -20,10 +22,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         isPlayerAlive = true;
-
         hasBlueKey = false;
         hasYellowKey = false;
         hasRedKey = false;
+
+        weaponControls = FindObjectOfType<WeaponControls>();
     }
 
     // Update is called once per frame
@@ -54,6 +57,8 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         isPlayerAlive = false;
+        weaponControls.InactiveWeapon();
+        Musics.instance.StopMusic();
         Debug.Log("Game Over! Você morreu.");
     }
 }

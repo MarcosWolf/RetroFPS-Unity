@@ -80,6 +80,11 @@ public class WeaponControls : MonoBehaviour
         }
     }
 
+    public void InactiveWeapon()
+    {
+        weapons[currentWeaponIndex].gameObject.SetActive(false);
+    }
+
     public bool getAmmo(int weapon, int ammoAmount)
     {
         if (weapons[weapon].GetAmmo(ammoAmount))

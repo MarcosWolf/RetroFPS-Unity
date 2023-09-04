@@ -7,6 +7,8 @@ public class PlayerControl : MonoBehaviour
 {
     public static PlayerControl instance;
 
+    public DamageHud damageHud;
+
     public int playerTotalHP;
     public int playerCurrentHP;
 
@@ -41,10 +43,17 @@ public class PlayerControl : MonoBehaviour
         if (GameManager.instance.isPlayerAlive == true)
         {
             playerCurrentHP -= playerDamageTaken;
+            
+            if (playerCurrentHP > 0)
+            {
+                SoundEffects.instance.sfxPlayerHit();
+                damageHud.Flash();
+            }
 
             if (playerCurrentHP <= 0)
             {
                 playerCurrentHP = 0;
+                SoundEffects.instance.sfxPlayerDeath();
                 GameManager.instance.GameOver();
             }
         }

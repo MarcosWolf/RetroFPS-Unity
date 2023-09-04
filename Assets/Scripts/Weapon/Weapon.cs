@@ -57,7 +57,7 @@ public class Weapon : MonoBehaviour
                 Vector3 spawnPosition = playerPosition;
 
                 // Instancia o projetil na posição do jogador
-                GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
+                GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);               
 
                 // Obtém o componente Rigidbody do projetil e define a velocidade
                 Rigidbody rb = projectile.GetComponent<Rigidbody>();
@@ -84,11 +84,11 @@ public class Weapon : MonoBehaviour
 
                 lastShotTime = Time.time;
                 currentAmmo--;
+                SoundEffects.instance.sfxShotgunFire();
                 weaponAnimator.SetTrigger("WeaponFire");
             }
             else {
-            Debug.Log("Sem munição");
-            //Tocar som de clique
+                SoundEffects.instance.sfxShotgunEmpty();
             }
         }
     }
@@ -141,6 +141,16 @@ public class Weapon : MonoBehaviour
             weaponAnimator.SetBool("WeaponReloaded", true);
             isReloading = false;
         }
+    }
+
+    private void sfxShotgunReload()
+    {
+        SoundEffects.instance.sfxShotgunReload();
+    }
+
+    private void sfxShotgunPump()
+    {
+        SoundEffects.instance.sfxShotgunPump();
     }
 
     public void ReloadIsOver()
