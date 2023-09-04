@@ -31,6 +31,8 @@ public class EnemyController : MonoBehaviour
     public float intervalBetweenPath;
     public float intervalCurrentTime;
 
+    public CircleCollider2D monsterCollider;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -128,6 +130,7 @@ public class EnemyController : MonoBehaviour
         {
             enemyAnimator.SetTrigger("EnemyAttack");
             Instantiate(projectile, projectileOrigin.position, projectileOrigin.rotation);
+            SoundEffects.instance.sfxImpRanged();
             hasAttacked = true;
 
             Invoke(nameof(resetEnemyAttack), attackDelay);
@@ -150,15 +153,23 @@ public class EnemyController : MonoBehaviour
     {
         if (isAlive)
         {
-            enemyAnimator.SetTrigger("EnemyHit");
             currentEnemyHP -= enemyDamageTaken;
+            
+            if (currentEnemyHP > 0 ) {
+                SoundEffects.instance.sfxImpHit();
+                enemyAnimator.SetTrigger("EnemyHit");
+            }
 
             if (currentEnemyHP <= 0)
             {
                 isAlive = false;
                 onChase = false;
                 canMove = false;
+                SoundEffects.instance.sfxImpDeath1();
                 enemyAnimator.SetTrigger("EnemyDead");
+                if (monsterCollider != null) {
+                    monsterCollider.enabled = false;
+                }
                 Debug.Log("Imp morto");
                 //Animação de morte
                 DestroyEnemy();
