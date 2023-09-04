@@ -21,33 +21,36 @@ public class FakeJump : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
+        if (GameManager.instance.isPlayerAlive)
         {
-            //originalPosition = transform.position.z;
-            // Iniciar o pulo falso
-            isJumping = true;
-            jumpTimer = 0.0f;
-        }
-
-        if (isJumping)
-        {
-            // Incrementar o temporizador do pulo
-            jumpTimer += Time.deltaTime;
-
-            // Calcular a nova posição Y do jogador para o pulo falso
-            float jumpZPosition = originalZPosition - jumpHeight * Mathf.Sin((jumpTimer / jumpDuration) * Mathf.PI);
-
-            // Atualizar a posição do jogador apenas no eixo Y
-            Vector3 newPosition = transform.position;
-            newPosition.z = jumpZPosition;
-            transform.position = newPosition;
-
-            // Verificar se o pulo falso terminou
-            if (jumpTimer >= jumpDuration)
+            if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
             {
-                isJumping = false;
-                newPosition.z = originalZPosition; // Definir a posição Y de volta ao chão
+                //originalPosition = transform.position.z;
+                // Iniciar o pulo falso
+                isJumping = true;
+                jumpTimer = 0.0f;
+            }
+
+            if (isJumping)
+            {
+                // Incrementar o temporizador do pulo
+                jumpTimer += Time.deltaTime;
+
+                // Calcular a nova posição Y do jogador para o pulo falso
+                float jumpZPosition = originalZPosition - jumpHeight * Mathf.Sin((jumpTimer / jumpDuration) * Mathf.PI);
+
+                // Atualizar a posição do jogador apenas no eixo Y
+                Vector3 newPosition = transform.position;
+                newPosition.z = jumpZPosition;
                 transform.position = newPosition;
+
+                // Verificar se o pulo falso terminou
+                if (jumpTimer >= jumpDuration)
+                {
+                    isJumping = false;
+                    newPosition.z = originalZPosition; // Definir a posição Y de volta ao chão
+                    transform.position = newPosition;
+                }
             }
         }
     }
