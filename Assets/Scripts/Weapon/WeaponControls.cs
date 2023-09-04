@@ -14,7 +14,7 @@ public class WeaponControls : MonoBehaviour
     
     void Start()
     {
-        //SwitchWeapon(1);
+        SwitchWeapon(1);
     }
 
     // Update is called once per frame

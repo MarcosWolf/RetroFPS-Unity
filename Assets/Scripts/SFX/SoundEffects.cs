@@ -8,7 +8,10 @@ public class SoundEffects : MonoBehaviour
 
 
     public AudioSource playerHit, playerDeath;
+    
     public AudioSource impMelee, impRanged, impSight1, impSight2, impHit, impDeath1, impDeath2;
+
+    public AudioSource smgFire, smgSlide, smgReload;
     public AudioSource shotgunFire, shotgunPump, shotgunReload, shotgunEmpty;
 
     void Awake()
@@ -28,6 +31,11 @@ public class SoundEffects : MonoBehaviour
     public void sfxImpDeath2() { impDeath2.Play(); }
 
     // Weapons
+    // Smg
+    public void sfxSmgFire() { smgFire.Play(); }
+    public void sfxSmgSlide() { smgSlide.Play(); }
+    public void sfxSmgReload() { smgReload.Play(); }
+    
     // Shotgun
     public void sfxShotgunFire() { shotgunFire.Play(); }
     public void sfxShotgunPump() { shotgunPump.Play(); }
