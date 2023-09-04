@@ -6,6 +6,8 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
+    public GameObject Crosshair;
+
     // Shotgun capsule
     public GameObject fallingObjectPrefab;
     public Transform capsuleSpawnPoint;

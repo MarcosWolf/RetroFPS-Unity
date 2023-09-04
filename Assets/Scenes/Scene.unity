@@ -7229,6 +7229,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Submachine
       objectReference: {fileID: 0}
+    - target: {fileID: 319609902624381454, guid: 529f55fb7dbf70a44bfaff93b7b13008, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2923460101606000691, guid: 529f55fb7dbf70a44bfaff93b7b13008, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

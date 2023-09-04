@@ -70,16 +70,20 @@ public class WeaponControls : MonoBehaviour
 
     private void SwitchWeapon(int newWeaponIndex)
     {
-        if (newWeaponIndex >= 0 && newWeaponIndex < weapons.Length)
+        if (GameManager.instance.isPlayerAlive)
         {
-            if (currentWeaponIndex != newWeaponIndex)
+            if (newWeaponIndex >= 0 && newWeaponIndex < weapons.Length)
             {
-                if (weapons[newWeaponIndex].isUnlocked) {
-                    weapons[currentWeaponIndex].gameObject.SetActive(false);
-                    currentWeaponIndex = newWeaponIndex;
-                    weapons[currentWeaponIndex].gameObject.SetActive(true);
-                } else {
-                    Debug.Log("Arma bloqueada ");
+                if (currentWeaponIndex != newWeaponIndex)
+                {
+                    if (weapons[newWeaponIndex].isUnlocked) {
+                        weapons[currentWeaponIndex].gameObject.SetActive(false);
+                        currentWeaponIndex = newWeaponIndex;
+                        weapons[currentWeaponIndex].gameObject.SetActive(true);
+                        UIManager.instance.Crosshair.gameObject.SetActive(true);
+                    } else {
+                        Debug.Log("Arma bloqueada ");
+                    }
                 }
             }
         }

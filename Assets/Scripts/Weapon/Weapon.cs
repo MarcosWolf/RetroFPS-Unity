@@ -19,6 +19,8 @@ public class Weapon : MonoBehaviour
     private bool isReloading = false;
     private bool pumpReload;
 
+    private bool canShot;
+
     public Camera playerCamera;
     public Animator weaponAnimator;
 
@@ -32,10 +34,46 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
+        isReloading = false;
+        canShot = true;
     }
 
     void Update()
     {
+        setCrosshair();
+    }
+
+    public void setCrosshair()
+    {
+        if (weaponName == "Smg")
+        {
+            if (weaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("SubmachineReload"))
+            {
+                UIManager.instance.Crosshair.gameObject.SetActive(false);
+            }
+            else if (weaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("SubmachineSlide"))
+            {
+                UIManager.instance.Crosshair.gameObject.SetActive(false);
+            }
+            else
+            {
+                UIManager.instance.Crosshair.gameObject.SetActive(true);
+            }
+        }
+        else if (weaponName == "Shotgun")
+        {
+            if (weaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("ShotgunReload"))
+            {
+                UIManager.instance.Crosshair.gameObject.SetActive(false);
+            }
+            else if (weaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("ShotgunForend"))
+            {
+                UIManager.instance.Crosshair.gameObject.SetActive(false);
+            }
+            else {
+                UIManager.instance.Crosshair.gameObject.SetActive(true);
+            }
+        }
     }
 
     public void Shoot()
@@ -47,7 +85,17 @@ public class Weapon : MonoBehaviour
                     isReloading = false;
                 }
 
-                if (currentAmmo > 0) {
+                if (weaponName == "Smg") {
+                    bool isSlideAnimation = weaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("SubmachineSlide");
+
+                    if (isSlideAnimation) {
+                        canShot = false;
+                    } else {
+                        canShot = true;
+                    }
+                }
+
+                if (currentAmmo > 0 && canShot) {
                     //Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
                     Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
                     RaycastHit hitTarget;

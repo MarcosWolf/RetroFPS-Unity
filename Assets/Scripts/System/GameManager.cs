@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         isPlayerAlive = false;
+        UIManager.instance.Crosshair.gameObject.SetActive(false);
         weaponControls.InactiveWeapon();
         Musics.instance.StopMusic();
         Debug.Log("Game Over! Você morreu.");
