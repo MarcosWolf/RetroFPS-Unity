@@ -29,7 +29,7 @@ public class DamageHud : MonoBehaviour
         //isFlashing = true;
 
         // Define a cor inicial como vermelho opaco
-        panelImage.color = new Color(1f, 0f, 0f, 1f);
+        panelImage.color = new Color(1f, 0f, 0f, 0.5f);
 
         yield return new WaitForSeconds(flashDuration);
 
