@@ -36,12 +36,12 @@ public class FallingCapsules : MonoBehaviour
         float y = initialPosition.y - fallSpeed * timeElapsed + (arcHeight / 100 ) * Mathf.Pow(timeElapsed, 2);
 
         rectTransform.anchoredPosition = new Vector2(x, y);
-
+        */
         if (rectTransform.anchoredPosition.y < -Screen.height / 2)
         {
             Destroy(gameObject);
         }
-        */
+        
         velocity.y += gravity * Time.deltaTime;
         rectTransform.anchoredPosition += velocity * Time.deltaTime;
     }

@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour
     public float intervalBetweenPath;
     public float intervalCurrentTime;
 
-    public CircleCollider2D monsterCollider;
+    private Collider[] enemyCollidersChildren, enemyCollidersParent;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +40,9 @@ public class EnemyController : MonoBehaviour
         isIdle = false;
         canMove = true;
         onChase = false;
+
+        enemyCollidersChildren = GetComponentsInChildren<Collider>();
+        enemyCollidersParent = GetComponentsInParent<Collider>();
     }
 
     // Update is called once per frame
@@ -166,20 +169,20 @@ public class EnemyController : MonoBehaviour
                 onChase = false;
                 canMove = false;
                 SoundEffects.instance.sfxImpDeath1();
+
                 enemyAnimator.SetTrigger("EnemyDead");
-                if (monsterCollider != null) {
-                    monsterCollider.enabled = false;
+                foreach(Collider collider in enemyCollidersChildren)
+                {
+                    collider.gameObject.SetActive(false);
                 }
-                Debug.Log("Imp morto");
-                //Animação de morte
-                DestroyEnemy();
+
+                foreach (Collider colliderParent in enemyCollidersParent)
+                {
+                    Debug.Log("OIII");
+                    colliderParent.gameObject.SetActive(false);
+                }
             }
         }
-    }
-
-    public void DestroyEnemy()
-    {
-        //Destroy(this.gameObject);
     }
 
 }
