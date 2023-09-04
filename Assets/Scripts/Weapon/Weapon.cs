@@ -87,11 +87,19 @@ public class Weapon : MonoBehaviour
                     pumpReload = false;
                     lastShotTime = Time.time;
                     currentAmmo--;
-                    SoundEffects.instance.sfxShotgunFire();
+                    if (weaponName == "Shotgun") {
+                        SoundEffects.instance.sfxShotgunFire();
+                    } else if (weaponName == "Smg") {
+                        SoundEffects.instance.sfxSmgFire();
+                    }
                     weaponAnimator.SetTrigger("WeaponFire");
                 }
                 else {
-                    SoundEffects.instance.sfxShotgunEmpty();
+                    if (weaponName == "Shotgun") {
+                        SoundEffects.instance.sfxShotgunEmpty();
+                    } else if (weaponName == "Smg") {
+                        //SoundEffects.instance.sfxSmgEmpty();
+                    }
                 }
             }
         }
@@ -107,11 +115,10 @@ public class Weapon : MonoBehaviour
 
                 if (weaponName == "Shotgun")
                 {
-                    weaponAnimator.SetBool("WeaponReloaded", false);
                     weaponAnimator.SetTrigger("WeaponReload");
                     pumpReload = true;
 
-                } else {
+                } else if (weaponName == "Smg") {
                     weaponAnimator.SetTrigger("WeaponReload");            
                 }
                 
@@ -152,6 +159,18 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    public void SmgReload()
+    {
+        int ammoRemaining = ammoPerRound - currentAmmo;
+        int ammoMissing = totalAmmo - ammoRemaining;
+
+        ReloadIsOver();
+
+        Debug.Log("Carregando Pente");
+        weaponAnimator.SetBool("WeaponReloaded", true);
+        isReloading = false;
+    }
+
     private void sfxShotgunReload()
     {
         SoundEffects.instance.sfxShotgunReload();
@@ -166,12 +185,21 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    private void sfxSmgReload()
+    {
+        SoundEffects.instance.sfxSmgReload();
+    }
+
+    private void sfxSmgSlide()
+    {
+        SoundEffects.instance.sfxSmgSlide();
+    }
+
     public void ReloadIsOver()
     {
         int ammoUsed = Mathf.Min(ammoPerRound - currentAmmo, totalAmmo);   
         currentAmmo += ammoUsed;
         totalAmmo -= ammoUsed;
-        isReloading = false;
     }
 
     public bool GetAmmo(int ammoAmount)
