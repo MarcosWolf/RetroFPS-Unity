@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class FallingCapsules : MonoBehaviour
 {
-    public float initialHorizontalSpeed = 2.0f;
-    public float gravity = -9.8f;
+    public float initialHorizontalSpeed = 6000;
+    public float gravity = -8000;
     private RectTransform rectTransform;
     private Vector2 initialPosition;
 

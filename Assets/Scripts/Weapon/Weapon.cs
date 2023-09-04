@@ -91,6 +91,8 @@ public class Weapon : MonoBehaviour
                         SoundEffects.instance.sfxShotgunFire();
                     } else if (weaponName == "Smg") {
                         SoundEffects.instance.sfxSmgFire();
+                        UIManager.instance.SpawnBulletCasing();
+                        SoundEffects.instance.sfxCasingDrop();
                     }
                     weaponAnimator.SetTrigger("WeaponFire");
                 }
@@ -182,12 +184,18 @@ public class Weapon : MonoBehaviour
 
         if (!pumpReload) {
             UIManager.instance.SpawnFallingObject();
+            SoundEffects.instance.sfxShellDrop();
         }
     }
 
-    private void sfxSmgReload()
+    private void sfxSmgReload1()
     {
-        SoundEffects.instance.sfxSmgReload();
+        SoundEffects.instance.sfxSmgReload1();
+    }
+
+    private void sfxSmgReload2()
+    {
+        SoundEffects.instance.sfxSmgReload2();
     }
 
     private void sfxSmgSlide()

@@ -10,6 +10,10 @@ public class UIManager : MonoBehaviour
     public GameObject fallingObjectPrefab;
     public Transform capsuleSpawnPoint;
 
+    // Bullet Casing
+    public GameObject bulletCasingPrefab;
+    public Transform casingSpawnPoint;
+
     // Blood hud when take damage
     public GameObject bloodHudPrefab;
     public Transform bloodSpawnPoint1;
@@ -19,6 +23,12 @@ public class UIManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+    }
+
+    public void SpawnBulletCasing()
+    {
+        GameObject newObject = Instantiate(bulletCasingPrefab, casingSpawnPoint.position, Quaternion.identity);
+        newObject.transform.SetParent(transform);
     }
 
     public void SpawnFallingObject()

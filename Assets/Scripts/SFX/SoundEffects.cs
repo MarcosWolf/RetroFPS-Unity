@@ -11,8 +11,9 @@ public class SoundEffects : MonoBehaviour
     
     public AudioSource impMelee, impRanged, impSight1, impSight2, impHit, impDeath1, impDeath2;
 
-    public AudioSource smgFire, smgSlide, smgReload;
+    public AudioSource smgFire, smgSlide, smgReload1, smgReload2;
     public AudioSource shotgunFire, shotgunPump, shotgunReload, shotgunEmpty;
+    public AudioSource casingDrop, shellDrop;
 
     void Awake()
     {
@@ -31,11 +32,16 @@ public class SoundEffects : MonoBehaviour
     public void sfxImpDeath2() { impDeath2.Play(); }
 
     // Weapons
+    // Generic
+    public void sfxCasingDrop() { casingDrop.Play(); }
+    public void sfxShellDrop() { shellDrop.Play(); }
+
     // Smg
     public void sfxSmgFire() { smgFire.Play(); }
     public void sfxSmgSlide() { smgSlide.Play(); }
-    public void sfxSmgReload() { smgReload.Play(); }
-    
+    public void sfxSmgReload1() { smgReload1.Play(); }
+    public void sfxSmgReload2() { smgReload2.Play(); }
+
     // Shotgun
     public void sfxShotgunFire() { shotgunFire.Play(); }
     public void sfxShotgunPump() { shotgunPump.Play(); }
