@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3255072383106887896
+--- !u!1 &4323749419979973958
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,53 +8,53 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1655348324881334962}
-  - component: {fileID: 4272913021384219520}
-  - component: {fileID: 6503959490990981082}
-  - component: {fileID: -4496071041359676587}
-  - component: {fileID: 5649335536799996330}
-  - component: {fileID: 5325853019899527345}
+  - component: {fileID: 9020880465999272328}
+  - component: {fileID: 993409955460339453}
+  - component: {fileID: 3319796703320505360}
+  - component: {fileID: 6934667056160537289}
+  - component: {fileID: 8973474552210404829}
+  - component: {fileID: 6755435320498454197}
   m_Layer: 5
-  m_Name: ShotgunCapsule
+  m_Name: BloodHud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &1655348324881334962
+--- !u!224 &9020880465999272328
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3255072383106887896}
+  m_GameObject: {fileID: 4323749419979973958}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 394, y: -251}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &4272913021384219520
+--- !u!222 &993409955460339453
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3255072383106887896}
+  m_GameObject: {fileID: 4323749419979973958}
   m_CullTransparentMesh: 1
---- !u!114 &6503959490990981082
+--- !u!114 &3319796703320505360
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3255072383106887896}
+  m_GameObject: {fileID: 4323749419979973958}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8e357c6958e7de2459ea680c1061c540, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 93157d17e2480b244b0a1bcd6c858ca9, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -78,30 +78,30 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-4496071041359676587
+--- !u!114 &6934667056160537289
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3255072383106887896}
+  m_GameObject: {fileID: 4323749419979973958}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03dafef87968b5342b70195e22dd6e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 1
---- !u!95 &5649335536799996330
+--- !u!95 &8973474552210404829
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3255072383106887896}
+  m_GameObject: {fileID: 4323749419979973958}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f7de466acc6a17d468af7eb7fcc813e8, type: 2}
+  m_Controller: {fileID: 9100000, guid: fa2078bfaefd82d40ac3b79dd4e84dfe, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -112,17 +112,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5325853019899527345
+--- !u!114 &6755435320498454197
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3255072383106887896}
+  m_GameObject: {fileID: 4323749419979973958}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c189b1e7df49994e8b61cb380aba58a, type: 3}
+  m_Script: {fileID: 11500000, guid: 079a4799a9ab168489def539c453003d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHorizontalSpeed: 6000
-  gravity: -8000

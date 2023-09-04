@@ -1616,7 +1616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e52f3d9bbe2b37439bf9478d3bd7b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageHud: {fileID: 894292901}
+  damageHud: {fileID: 894292904}
   playerTotalHP: 100
   playerCurrentHP: 100
   hpText: {fileID: 1997998095}
@@ -1741,6 +1741,44 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1340048394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &441544568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 441544569}
+  m_Layer: 5
+  m_Name: DamagePanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &441544569
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441544568}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1495478976}
+  - {fileID: 1329193785}
+  - {fileID: 894292900}
+  m_Father: {fileID: 1835347949}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &479950141
 GameObject:
   m_ObjectHideFlags: 0
@@ -3152,7 +3190,7 @@ GameObject:
   - component: {fileID: 894292900}
   - component: {fileID: 894292903}
   - component: {fileID: 894292902}
-  - component: {fileID: 894292901}
+  - component: {fileID: 894292904}
   m_Layer: 5
   m_Name: DamageHud
   m_TagString: Untagged
@@ -3167,32 +3205,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 894292899}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1835347949}
+  m_Father: {fileID: 441544569}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_AnchoredPosition: {x: -10.2763, y: 5.1382}
+  m_SizeDelta: {x: 2125.5266, y: 1234.1445}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &894292901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 894292899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73cc810d1a7a50d4aabc771d29a3bf31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isFlashing: 0
-  flashDuration: 0.1
 --- !u!114 &894292902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3231,6 +3255,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 894292899}
   m_CullTransparentMesh: 1
+--- !u!114 &894292904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894292899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73cc810d1a7a50d4aabc771d29a3bf31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFlashing: 0
+  flashDuration: 0.1
 --- !u!1 &1046475824
 GameObject:
   m_ObjectHideFlags: 0
@@ -3941,6 +3979,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1340048394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1329193784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1329193785}
+  m_Layer: 5
+  m_Name: BloodSpawn2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1329193785
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329193784}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 441544569}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 450, y: -361}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1340048393
 GameObject:
   m_ObjectHideFlags: 0
@@ -4052,6 +4125,41 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d58748d58b63c64db48a2a2a2954710, type: 3}
+--- !u!1 &1495478975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1495478976}
+  m_Layer: 5
+  m_Name: BloodSpawn1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1495478976
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495478975}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 441544569}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -506, y: -361}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1498131981
 GameObject:
   m_ObjectHideFlags: 0
@@ -5123,8 +5231,8 @@ RectTransform:
   - {fileID: 1102080441}
   - {fileID: 589417037}
   - {fileID: 1997998094}
-  - {fileID: 894292900}
   - {fileID: 153511101}
+  - {fileID: 441544569}
   m_Father: {fileID: 725759071}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5205,7 +5313,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallingObjectPrefab: {fileID: 3255072383106887896, guid: 1578f7c0814672e498ddaf1805783507, type: 3}
-  spawnPoint: {fileID: 153511101}
+  capsuleSpawnPoint: {fileID: 153511101}
+  bloodHudPrefab: {fileID: 4323749419979973958, guid: 2be63e94acca2474c9805c010015dd54, type: 3}
+  bloodSpawnPoint1: {fileID: 1495478976}
+  bloodSpawnPoint2: {fileID: 1329193785}
 --- !u!1001 &1921737675
 PrefabInstance:
   m_ObjectHideFlags: 0

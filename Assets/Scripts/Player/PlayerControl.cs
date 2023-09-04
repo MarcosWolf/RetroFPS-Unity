@@ -53,6 +53,7 @@ public class PlayerControl : MonoBehaviour
             if (playerCurrentHP <= 0)
             {
                 playerCurrentHP = 0;
+                damageHud.Flash();
                 SoundEffects.instance.sfxPlayerDeath();
                 GameManager.instance.GameOver();
             }
