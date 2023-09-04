@@ -20,14 +20,17 @@ public class CameraVertical : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Camera responsável pela Rotação Y (Vertical)
-        float mouseY = Input.GetAxis("Mouse Y");
+        if (GameManager.instance.isPlayerAlive)
+        {
+            // Camera responsável pela Rotação Y (Vertical)
+            float mouseY = Input.GetAxis("Mouse Y");
 
-        mouseY *= sensitivity;
+            mouseY *= sensitivity;
 
-        rotationY+= mouseY;
-        rotationY = Mathf.Clamp(rotationY, minYAngle, maxYAngle);
+            rotationY+= mouseY;
+            rotationY = Mathf.Clamp(rotationY, minYAngle, maxYAngle);
 
-        transform.localRotation = Quaternion.Euler(0, rotationY, -90);
+            transform.localRotation = Quaternion.Euler(0, rotationY, -90);
+        }
     }
 }

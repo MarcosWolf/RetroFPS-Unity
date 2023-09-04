@@ -39,85 +39,91 @@ public class Weapon : MonoBehaviour
 
     public void Shoot()
     {
-        if (Time.time - lastShotTime >= timeBetweenShots)
-        {
-            if (isReloading) {
-                isReloading = false;
-            }
-
-            if (currentAmmo > 0) {
-                //Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-                Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-                RaycastHit hitTarget;
-                
-                Vector3 shootDirection = ray.direction.normalized;
-                Vector3 playerPosition = PlayerControl.instance.transform.position;
-
-                // Calcula a posição de início do projetil, que é a posição do jogador
-                Vector3 spawnPosition = playerPosition;
-
-                // Instancia o projetil na posição do jogador
-                GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);               
-
-                // Obtém o componente Rigidbody do projetil e define a velocidade
-                Rigidbody rb = projectile.GetComponent<Rigidbody>();
-                rb.velocity = shootDirection * projectileSpeed;                          
-
-                if (Physics.Raycast(ray, out hitTarget))
-                {                    
-                    AnimationRandom = Random.value;
-
-                    if (AnimationRandom <= 0.5f)
-                    {
-                        Instantiate(blood1, hitTarget.point, hitTarget.transform.rotation);
-                    }
-                    else
-                    {
-                        Instantiate(blood2, hitTarget.point, hitTarget.transform.rotation);
-                    }
-
-                    if (hitTarget.transform.gameObject.CompareTag("Enemy"))
-                    {
-                        hitTarget.transform.gameObject.GetComponentInParent<EnemyController>().HitEnemy(weaponDamage);
-                    }
+        if (GameManager.instance.isPlayerAlive) {
+            if (Time.time - lastShotTime >= timeBetweenShots)
+            {
+                if (isReloading) {
+                    isReloading = false;
                 }
 
-                lastShotTime = Time.time;
-                currentAmmo--;
-                SoundEffects.instance.sfxShotgunFire();
-                weaponAnimator.SetTrigger("WeaponFire");
-            }
-            else {
-                SoundEffects.instance.sfxShotgunEmpty();
+                if (currentAmmo > 0) {
+                    //Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+                    Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+                    RaycastHit hitTarget;
+                    
+                    Vector3 shootDirection = ray.direction.normalized;
+                    Vector3 playerPosition = PlayerControl.instance.transform.position;
+
+                    // Calcula a posição de início do projetil, que é a posição do jogador
+                    Vector3 spawnPosition = playerPosition;
+
+                    // Instancia o projetil na posição do jogador
+                    GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);               
+
+                    // Obtém o componente Rigidbody do projetil e define a velocidade
+                    Rigidbody rb = projectile.GetComponent<Rigidbody>();
+                    rb.velocity = shootDirection * projectileSpeed;                          
+
+                    if (Physics.Raycast(ray, out hitTarget))
+                    {                    
+                        AnimationRandom = Random.value;
+
+                        if (AnimationRandom <= 0.5f)
+                        {
+                            Instantiate(blood1, hitTarget.point, hitTarget.transform.rotation);
+                        }
+                        else
+                        {
+                            Instantiate(blood2, hitTarget.point, hitTarget.transform.rotation);
+                        }
+
+                        if (hitTarget.transform.gameObject.CompareTag("Enemy"))
+                        {
+                            hitTarget.transform.gameObject.GetComponentInParent<EnemyController>().HitEnemy(weaponDamage);
+                        }
+                    }
+
+                    lastShotTime = Time.time;
+                    currentAmmo--;
+                    SoundEffects.instance.sfxShotgunFire();
+                    weaponAnimator.SetTrigger("WeaponFire");
+                }
+                else {
+                    SoundEffects.instance.sfxShotgunEmpty();
+                }
             }
         }
     }
 
     public void Reload()
     {
-        if (!isReloading && currentAmmo < ammoPerRound && totalAmmo > 0)
-        {
-            isReloading = true;
-            weaponAnimator.SetBool("WeaponReloaded", false);
-
-            if (weaponName == "Shotgun")
+        if (GameManager.instance.isPlayerAlive) {
+            if (!isReloading && currentAmmo < ammoPerRound && totalAmmo > 0)
             {
+                isReloading = true;
                 weaponAnimator.SetBool("WeaponReloaded", false);
-                weaponAnimator.SetTrigger("WeaponReload");
 
-            } else {
-                weaponAnimator.SetTrigger("WeaponReload");            
+                if (weaponName == "Shotgun")
+                {
+                    weaponAnimator.SetBool("WeaponReloaded", false);
+                    weaponAnimator.SetTrigger("WeaponReload");
+
+                } else {
+                    weaponAnimator.SetTrigger("WeaponReload");            
+                }
+                
             }
-            
         }
     }
 
     public void ShotgunReload()
     {
+        
         int ammoRemaining = ammoPerRound - currentAmmo;
         int ammoMissing = totalAmmo - ammoRemaining;
 
-        if (ammoMissing >= 1)
+        //if (ammoMissing >= 1)
+        if (currentAmmo < ammoPerRound)
         {
             currentAmmo++;
             totalAmmo--;
@@ -141,6 +147,37 @@ public class Weapon : MonoBehaviour
             weaponAnimator.SetBool("WeaponReloaded", true);
             isReloading = false;
         }
+    
+        
+
+        /*
+        if (currentAmmo < ammoPerRound && totalAmmo > 0)
+        {
+            currentAmmo++;
+            totalAmmo--;
+
+            if (totalAmmo > 0)
+            {
+                weaponAnimator.SetBool("WeaponReloaded", false);
+                isReloading = true;
+            }
+            else
+            {
+                weaponAnimator.SetBool("WeaponReloaded", true);
+                isReloading = false;
+            }
+        }
+        else if (currentAmmo == ammoPerRound)
+        {
+            weaponAnimator.SetBool("WeaponReloaded", true);
+            isReloading = false;
+        }
+        else
+        {
+            weaponAnimator.SetBool("WeaponReloaded", true);
+            isReloading = false;
+        }
+        */
     }
 
     private void sfxShotgunReload()

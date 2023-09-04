@@ -13,11 +13,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        if (GameManager.instance.isPlayerAlive)
+        {
+            float horizontalInput = Input.GetAxis("Horizontal");
+            float verticalInput = Input.GetAxis("Vertical");
 
-        Vector3 playerMovement = new Vector3(verticalInput, -horizontalInput, 0) * moveSpeed * Time.deltaTime;
+            Vector3 playerMovement = new Vector3(verticalInput, -horizontalInput, 0) * moveSpeed * Time.deltaTime;
 
-        transform.Translate(playerMovement);
+            transform.Translate(playerMovement);
+        }
     }
 }

@@ -15,15 +15,19 @@ public class CameraHorizontal : MonoBehaviour
 
     void Update()
     {
-        // Player responsável pela Rotação Z (Horizontal)
-        float mouseX = Input.GetAxis("Mouse X");
 
-        mouseX *= sensitivity;
+        if (GameManager.instance.isPlayerAlive)
+        {
+            // Player responsável pela Rotação Z (Horizontal)
+            float mouseX = Input.GetAxis("Mouse X");
 
-        transform.Rotate(Vector3.up * mouseX);
+            mouseX *= sensitivity;
 
-        rotationX -= mouseX;
-        
-        transform.localRotation = Quaternion.Euler(0, 0, rotationX);
+            transform.Rotate(Vector3.up * mouseX);
+
+            rotationX -= mouseX;
+            
+            transform.localRotation = Quaternion.Euler(0, 0, rotationX);
+        }
     }
 }
