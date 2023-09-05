@@ -26,6 +26,8 @@ public class Weapon : MonoBehaviour
 
     public GameObject projectilePrefab;
     public float projectileSpeed;
+    public float spawnOffset;
+    public float spreadAngle;
 
     public GameObject blood1;
     public GameObject blood2;
@@ -108,18 +110,45 @@ public class Weapon : MonoBehaviour
                     RaycastHit hitTarget;
                     
                     Vector3 shootDirection = ray.direction.normalized;
+                    Debug.Log(shootDirection);
                     Vector3 playerPosition = PlayerControl.instance.transform.position;
 
-                    // Calcula a posição de início do projetil, que é a posição do jogador
-                    Vector3 spawnPosition = playerPosition;
+                    if (weaponName == "Smg")
+                    {
+                        float randomSpreadAngle = Random.Range(-spreadAngle, spreadAngle);
 
-                    // Instancia o projetil na posição do jogador
-                    GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);               
+                        Vector3 randomSpreadDirection = Quaternion.Euler(0f, 0f, randomSpreadAngle) * shootDirection;
 
-                    // Obtém o componente Rigidbody do projetil e define a velocidade
-                    Rigidbody rb = projectile.GetComponent<Rigidbody>();
-                    rb.velocity = shootDirection * projectileSpeed;                          
+                        // Calcula a posição de início do projetil, que é a posição do jogador
+                        Vector3 spawnPosition = playerPosition + (randomSpreadDirection * spawnOffset);
 
+                        // Instancia o projetil na posição do jogador
+                        GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);               
+
+                        // Obtém o componente Rigidbody do projetil e define a velocidade
+                        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+                        rb.velocity = randomSpreadDirection * projectileSpeed;     
+                    } else if (weaponName == "Shotgun")
+                    {
+                        float spacing = 1f;
+
+                        for (int i = -1; i <= 1; i++)
+                        {
+                            float randomSpreadAngle = Random.Range(-spreadAngle, spreadAngle);
+                            Vector3 randomSpreadDirection = Quaternion.Euler(0f, 0f, randomSpreadAngle) * shootDirection;
+
+                            Vector3 initialSpawnPosition = playerPosition + (randomSpreadDirection * spawnOffset);
+
+                            Vector3 spawnPosition = initialSpawnPosition + (randomSpreadDirection * spacing * i);
+
+                            GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
+
+                            Rigidbody rb = projectile.GetComponent<Rigidbody>();
+                            rb.velocity = randomSpreadDirection * projectileSpeed;
+                        }
+                    }
+
+                    
                     if (Physics.Raycast(ray, out hitTarget))
                     {                    
                         AnimationRandom = Random.value;
