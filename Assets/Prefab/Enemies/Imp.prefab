@@ -236,16 +236,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 4383292500890446474}
-  enemySpeed: 12
+  enemySpeed: 5
   enemyPath:
   - {fileID: 0}
   currentPath: 0
   projectileOrigin: {fileID: 5496701571750788551}
   projectile: {fileID: 5768171187892020187, guid: 293a89c0aab9a7e4597af6413593d4fd, type: 3}
   meleeAttackDistance: 5
-  rangedAttackDistance: 50
-  chasePlayerDistance: 500
-  attackDelay: 2
+  rangedAttackDistance: 200
+  chasePlayerDistance: 200
+  attackDelay: 1
   onChase: 0
   isAlive: 1
   isIdle: 0

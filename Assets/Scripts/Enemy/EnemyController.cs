@@ -61,11 +61,15 @@ public class EnemyController : MonoBehaviour
         {
             if (canMove) {
                 if (onChase) {
-                    transform.position = Vector2.MoveTowards(transform.position, PlayerControl.instance.transform.position, enemySpeed * Time.deltaTime);
+                    Vector3 targetPosition = PlayerControl.instance.transform.position;
+                    targetPosition.z = -0.5f;
+                    transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemySpeed * Time.deltaTime);
                     enemyAnimator.SetTrigger("EnemyWalk");
                 }
                 else {
-                    transform.position = Vector2.MoveTowards(transform.position, enemyPath[currentPath].position, enemySpeed * Time.deltaTime);
+                    Vector3 targetPosition = enemyPath[currentPath].position;
+                    targetPosition.z = -0.5f;
+                    transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemySpeed * Time.deltaTime);
 
                     if (transform.position.y != enemyPath[currentPath].position.y )
                     {

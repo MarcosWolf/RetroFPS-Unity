@@ -21,8 +21,6 @@ public class Weapon : MonoBehaviour
 
     private bool canShot;
 
-    private bool isPumped;
-
     public Camera playerCamera;
     public Animator weaponAnimator;
 
@@ -37,8 +35,6 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         isReloading = false;
-        isPumped = false;
-        //weaponAnimator.SetBool("WeaponIsPumped", true);
         canShot = true;
     }
 
@@ -78,14 +74,6 @@ public class Weapon : MonoBehaviour
                 UIManager.instance.Crosshair.gameObject.SetActive(true);
             }
         }
-    }
-
-    public void setPumped()
-    {
-        //isPumped = true;
-        //canShot = true;
-        //weaponAnimator.SetBool("WeaponIsPumped", true);
-        Debug.Log("PUMPED UP!");
     }
 
     public void Shoot()
