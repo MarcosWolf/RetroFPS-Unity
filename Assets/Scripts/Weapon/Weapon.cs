@@ -113,6 +113,10 @@ public class Weapon : MonoBehaviour
                     Debug.Log(shootDirection);
                     Vector3 playerPosition = PlayerControl.instance.transform.position;
 
+                    int obstacleLayerMask = LayerMask.GetMask("Obstacle");
+
+
+
                     if (weaponName == "Smg")
                     {
                         float randomSpreadAngle = Random.Range(-spreadAngle, spreadAngle);
@@ -151,19 +155,21 @@ public class Weapon : MonoBehaviour
                     
                     if (Physics.Raycast(ray, out hitTarget))
                     {                    
-                        AnimationRandom = Random.value;
+                        
+                        if (hitTarget.collider.CompareTag("Enemy"))
+                        {
 
-                        if (AnimationRandom <= 0.5f)
-                        {
-                            Instantiate(blood1, hitTarget.point, hitTarget.transform.rotation);
-                        }
-                        else
-                        {
-                            Instantiate(blood2, hitTarget.point, hitTarget.transform.rotation);
-                        }
+                            AnimationRandom = Random.value;
 
-                        if (hitTarget.transform.gameObject.CompareTag("Enemy"))
-                        {
+                            if (AnimationRandom <= 0.5f)
+                            {
+                                Instantiate(blood1, hitTarget.point, hitTarget.transform.rotation);
+                            }
+                            else
+                            {
+                                Instantiate(blood2, hitTarget.point, hitTarget.transform.rotation);
+                            }
+
                             hitTarget.transform.gameObject.GetComponentInParent<EnemyController>().HitEnemy(weaponDamage);
                         }
                     }
