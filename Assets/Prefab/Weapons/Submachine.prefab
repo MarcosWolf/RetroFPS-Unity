@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2923460101606000691
 RectTransform:
   m_ObjectHideFlags: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
   weaponName: Smg
   weaponDamage: 50
   currentAmmo: 35
-  totalAmmo: 40
+  totalAmmo: 140
   ammoPerRound: 35
   maxAmmo: 200
   timeBetweenShots: 0.1
@@ -63,6 +63,8 @@ MonoBehaviour:
   weaponAnimator: {fileID: -4580627842759177520}
   projectilePrefab: {fileID: 8067020359205245, guid: 3ff5c8b17d57dbb4497b190336140078, type: 3}
   projectileSpeed: 300
+  spawnOffset: 15
+  spreadAngle: 1.6
   blood1: {fileID: 8806528777227866635, guid: 084aa0aa36e99114193007baed253efe, type: 3}
   blood2: {fileID: 4856474486113306948, guid: bd3dc11aff8690a48942e9a25088e566, type: 3}
 --- !u!222 &5005605596420321801
