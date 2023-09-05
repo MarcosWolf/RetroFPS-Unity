@@ -181,11 +181,7 @@ public class Weapon : MonoBehaviour
                     weaponAnimator.SetTrigger("WeaponFire");
                 }
                 else {
-                    if (weaponName == "Shotgun") {
-                        SoundEffects.instance.sfxShotgunEmpty();
-                    } else if (weaponName == "Smg") {
-                        //SoundEffects.instance.sfxSmgEmpty();
-                    }
+                    SoundEffects.instance.sfxWeaponEmpty();
                 }
             }
         }

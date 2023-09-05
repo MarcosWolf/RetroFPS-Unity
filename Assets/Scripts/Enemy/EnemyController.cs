@@ -6,6 +6,8 @@ public class EnemyController : MonoBehaviour
 {
     public Animator enemyAnimator;
 
+    public ImpSfx impSfx;
+
     public float enemySpeed;
     public Transform[] enemyPath; 
     public int currentPath;
@@ -59,14 +61,17 @@ public class EnemyController : MonoBehaviour
     {
         if (isAlive)
         {
-            if (canMove) {
-                if (onChase) {
+            if (canMove)
+            {
+                if (onChase)
+                {
                     Vector3 targetPosition = PlayerControl.instance.transform.position;
                     targetPosition.z = -0.5f;
                     transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemySpeed * Time.deltaTime);
                     enemyAnimator.SetTrigger("EnemyWalk");
                 }
-                else {
+                else
+                {
                     Vector3 targetPosition = enemyPath[currentPath].position;
                     targetPosition.z = -0.5f;
                     transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemySpeed * Time.deltaTime);
@@ -137,7 +142,8 @@ public class EnemyController : MonoBehaviour
         {
             enemyAnimator.SetTrigger("EnemyAttack");
             Instantiate(projectile, projectileOrigin.position, projectileOrigin.rotation);
-            SoundEffects.instance.sfxImpRanged();
+            impSfx.impRanged.Play();
+
             hasAttacked = true;
 
             Invoke(nameof(resetEnemyAttack), attackDelay);
@@ -146,8 +152,12 @@ public class EnemyController : MonoBehaviour
 
     private void meleeAttackPlayer()
     {
-        if (isAlive) {
-            Debug.Log("Atacando perto");
+        if (!hasAttacked && isAlive) {
+            impSfx.impMelee.Play();
+
+            hasAttacked = true;
+
+            Invoke(nameof(resetEnemyAttack), attackDelay);
         }
     }
 
@@ -163,7 +173,7 @@ public class EnemyController : MonoBehaviour
             currentEnemyHP -= enemyDamageTaken;
             
             if (currentEnemyHP > 0 ) {
-                SoundEffects.instance.sfxImpHit();
+                impSfx.impHit.Play();
                 enemyAnimator.SetTrigger("EnemyHit");
             }
 
@@ -172,7 +182,13 @@ public class EnemyController : MonoBehaviour
                 isAlive = false;
                 onChase = false;
                 canMove = false;
-                SoundEffects.instance.sfxImpDeath1();
+
+                if (Random.Range(0, 2) == 0)
+                {
+                    impSfx.impDeath1.Play();
+                } else {
+                    impSfx.impDeath2.Play();
+                }
 
                 enemyAnimator.SetTrigger("EnemyDead");
                 foreach(Collider collider in enemyCollidersChildren)
