@@ -6,6 +6,8 @@ public class EnemyController : MonoBehaviour
 {
     public Animator enemyAnimator;
 
+    public ImpSfx impSfx;
+
     public float enemySpeed;
     public Transform[] enemyPath; 
     public int currentPath;
@@ -17,6 +19,8 @@ public class EnemyController : MonoBehaviour
     public float rangedAttackDistance;
     public float chasePlayerDistance;
     public float attackDelay;
+
+    public int meleeAttackDamage;
 
     public bool onChase;
 
@@ -55,18 +59,52 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    bool canSeePlayer()
+    {
+        Vector3 directionToPlayer = PlayerControl.instance.transform.position - transform.position;
+        RaycastHit Hit;
+
+        int obstacleLayerMask = LayerMask.GetMask("Obstacle");
+
+        if (Physics.Raycast(transform.position, directionToPlayer, out Hit, Mathf.Infinity, obstacleLayerMask))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     private void moveEnemy()
     {
         if (isAlive)
         {
-            if (canMove) {
-                if (onChase) {
+            if (canMove)
+            {
+                if (onChase && canSeePlayer())
+                {
                     Vector3 targetPosition = PlayerControl.instance.transform.position;
                     targetPosition.z = -0.5f;
-                    transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemySpeed * Time.deltaTime);
-                    enemyAnimator.SetTrigger("EnemyWalk");
+                    
+                    Vector3 directionToPlayer = targetPosition - transform.position;
+
+                    float distanceToPlayer = directionToPlayer.magnitude;
+
+                    float stopDistance = 6f;
+
+                    if (distanceToPlayer > stopDistance)
+                    {
+                        transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemySpeed * Time.deltaTime);    
+                        enemyAnimator.SetTrigger("EnemyWalk");
+                    }
+                    else
+                    {
+                        //enemyAnimator.SetTrigger("EnemyIdle");
+                        idleEnemy();
+                    }
+                    
                 }
-                else {
+                else
+                {
                     Vector3 targetPosition = enemyPath[currentPath].position;
                     targetPosition.z = -0.5f;
                     transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemySpeed * Time.deltaTime);
@@ -78,7 +116,7 @@ public class EnemyController : MonoBehaviour
 
                     if (transform.position.y == enemyPath[currentPath].position.y )
                     {
-                        enemyAnimator.SetTrigger("EnemyIdle");
+                        //enemyAnimator.SetTrigger("EnemyIdle");
                         idleEnemy();
                     }
 
@@ -98,13 +136,16 @@ public class EnemyController : MonoBehaviour
 
         intervalCurrentTime -= Time.deltaTime;
 
-        if (intervalCurrentTime <= 0)
+        if (!onChase)
         {
-            canMove = true;
-            isIdle = false;
-            currentPath++;
-            intervalCurrentTime = intervalBetweenPath;
-            enemyAnimator.SetTrigger("EnemyWalk");
+            if (intervalCurrentTime <= 0)
+            {
+                canMove = true;
+                isIdle = false;
+                currentPath++;
+                intervalCurrentTime = intervalBetweenPath;
+                enemyAnimator.SetTrigger("EnemyWalk");
+            }
         }
     }
 
@@ -133,11 +174,12 @@ public class EnemyController : MonoBehaviour
 
     private void rangedAttackPlayer()
     {
-        if (!hasAttacked && isAlive)
+        if (!hasAttacked && isAlive && canSeePlayer())
         {
             enemyAnimator.SetTrigger("EnemyAttack");
             Instantiate(projectile, projectileOrigin.position, projectileOrigin.rotation);
-            SoundEffects.instance.sfxImpRanged();
+            impSfx.impRanged.Play();
+
             hasAttacked = true;
 
             Invoke(nameof(resetEnemyAttack), attackDelay);
@@ -146,8 +188,15 @@ public class EnemyController : MonoBehaviour
 
     private void meleeAttackPlayer()
     {
-        if (isAlive) {
-            Debug.Log("Atacando perto");
+        if (!hasAttacked && isAlive && canSeePlayer())
+        {
+            enemyAnimator.SetTrigger("EnemyAttack");
+            impSfx.impMelee.Play();
+            PlayerControl.instance.HitPlayer(meleeAttackDamage);
+
+            hasAttacked = true;
+
+            Invoke(nameof(resetEnemyAttack), attackDelay);
         }
     }
 
@@ -163,7 +212,7 @@ public class EnemyController : MonoBehaviour
             currentEnemyHP -= enemyDamageTaken;
             
             if (currentEnemyHP > 0 ) {
-                SoundEffects.instance.sfxImpHit();
+                impSfx.impHit.Play();
                 enemyAnimator.SetTrigger("EnemyHit");
             }
 
@@ -172,7 +221,13 @@ public class EnemyController : MonoBehaviour
                 isAlive = false;
                 onChase = false;
                 canMove = false;
-                SoundEffects.instance.sfxImpDeath1();
+
+                if (Random.Range(0, 2) == 0)
+                {
+                    impSfx.impDeath1.Play();
+                } else {
+                    impSfx.impDeath2.Play();
+                }
 
                 enemyAnimator.SetTrigger("EnemyDead");
                 foreach(Collider collider in enemyCollidersChildren)
@@ -188,5 +243,4 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
-
-}
+    }
