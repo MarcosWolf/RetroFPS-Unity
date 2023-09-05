@@ -21,6 +21,8 @@ public class Weapon : MonoBehaviour
 
     private bool canShot;
 
+    private bool isPumped;
+
     public Camera playerCamera;
     public Animator weaponAnimator;
 
@@ -35,6 +37,8 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         isReloading = false;
+        isPumped = false;
+        //weaponAnimator.SetBool("WeaponIsPumped", true);
         canShot = true;
     }
 
@@ -76,6 +80,14 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    public void setPumped()
+    {
+        //isPumped = true;
+        //canShot = true;
+        //weaponAnimator.SetBool("WeaponIsPumped", true);
+        Debug.Log("PUMPED UP!");
+    }
+
     public void Shoot()
     {
         if (GameManager.instance.isPlayerAlive) {
@@ -86,13 +98,20 @@ public class Weapon : MonoBehaviour
                 }
 
                 if (weaponName == "Smg") {
-                    bool isSlideAnimation = weaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("SubmachineSlide");
-
-                    if (isSlideAnimation) {
+                    if (weaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("SubmachineSlide")) {
                         canShot = false;
                     } else {
                         canShot = true;
                     }
+                }
+
+                if (weaponName == "Shotgun") {
+                    if (weaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("ShotgunForend")) {
+                        canShot = false;
+                    } else {
+                        canShot = true;
+                    }
+                    
                 }
 
                 if (currentAmmo > 0 && canShot) {
@@ -160,6 +179,7 @@ public class Weapon : MonoBehaviour
         if (GameManager.instance.isPlayerAlive) {
             if (!isReloading && currentAmmo < ammoPerRound && totalAmmo > 0)
             {
+                
                 isReloading = true;
                 weaponAnimator.SetBool("WeaponReloaded", false);
 
@@ -187,23 +207,18 @@ public class Weapon : MonoBehaviour
         {
             currentAmmo++;
             totalAmmo--;
-
-            Debug.Log("Total no pente:" + currentAmmo);
         } else {
-            Debug.Log("Sem munição suficiente");
             weaponAnimator.SetBool("WeaponReloaded", true);
             isReloading = false;
         }
 
         if (currentAmmo >= ammoPerRound)
         {
-            Debug.Log("Pente cheio =)");
             weaponAnimator.SetBool("WeaponReloaded", true);
             isReloading = false;
         }
         else if (totalAmmo == 0)
         {
-            Debug.Log("Sem mais balas, amigo");
             weaponAnimator.SetBool("WeaponReloaded", true);
             isReloading = false;
         }
@@ -216,7 +231,6 @@ public class Weapon : MonoBehaviour
 
         ReloadIsOver();
 
-        Debug.Log("Carregando Pente");
         weaponAnimator.SetBool("WeaponReloaded", true);
         isReloading = false;
     }
