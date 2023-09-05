@@ -116,11 +116,13 @@ MonoBehaviour:
   totalAmmo: 64
   ammoPerRound: 8
   maxAmmo: 99
-  timeBetweenShots: 0.65
+  timeBetweenShots: 0.85
   isUnlocked: 1
   playerCamera: {fileID: 0}
   weaponAnimator: {fileID: 3825873142288043466}
   projectilePrefab: {fileID: 8067020359205245, guid: 3ff5c8b17d57dbb4497b190336140078, type: 3}
   projectileSpeed: 250
+  spawnOffset: 10
+  spreadAngle: 1
   blood1: {fileID: 8806528777227866635, guid: 084aa0aa36e99114193007baed253efe, type: 3}
   blood2: {fileID: 4856474486113306948, guid: bd3dc11aff8690a48942e9a25088e566, type: 3}
