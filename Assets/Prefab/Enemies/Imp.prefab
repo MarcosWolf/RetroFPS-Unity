@@ -117,7 +117,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.55, y: 9.030001, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7223441251603486395}
@@ -236,15 +236,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 4383292500890446474}
-  enemySpeed: 5
+  enemySpeed: 12
   enemyPath:
   - {fileID: 0}
   currentPath: 0
   projectileOrigin: {fileID: 5496701571750788551}
   projectile: {fileID: 5768171187892020187, guid: 293a89c0aab9a7e4597af6413593d4fd, type: 3}
   meleeAttackDistance: 5
-  rangedAttackDistance: 40
-  chasePlayerDistance: 50
+  rangedAttackDistance: 50
+  chasePlayerDistance: 500
   attackDelay: 2
   onChase: 0
   isAlive: 1
@@ -255,7 +255,6 @@ MonoBehaviour:
   currentEnemyHP: 300
   intervalBetweenPath: 3
   intervalCurrentTime: 3
-  monsterCollider: {fileID: 8932451693668171395}
 --- !u!95 &4383292500890446474
 Animator:
   serializedVersion: 5
