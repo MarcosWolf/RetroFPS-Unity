@@ -71,6 +71,8 @@ public class EnemyController : MonoBehaviour
             return false;
         }
 
+        Debug.Log("Hehe, to te vendo");
+
         return true;
     }
 
