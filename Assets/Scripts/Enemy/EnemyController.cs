@@ -35,6 +35,9 @@ public class EnemyController : MonoBehaviour
     public float intervalBetweenPath;
     public float intervalCurrentTime;
 
+    public LayerMask playerLayer;
+    public LayerMask obstacleLayer;
+
     private Collider[] enemyCollidersChildren;
 
     // Start is called before the first frame update
@@ -60,19 +63,30 @@ public class EnemyController : MonoBehaviour
 
     bool canSeePlayer()
     {
-        Vector3 directionToPlayer = PlayerControl.instance.transform.position - transform.position;
-        RaycastHit Hit;
+        Vector2 directionToPlayer = PlayerControl.instance.transform.position - transform.position;
 
-        int obstacleLayerMask = LayerMask.GetMask("Obstacle");
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, Mathf.Infinity, playerLayer | obstacleLayer);
 
-        if (Physics.Raycast(transform.position, directionToPlayer, out Hit, Mathf.Infinity, obstacleLayerMask))
+        Debug.DrawRay(transform.position, directionToPlayer.normalized * (hit.collider != null ? hit.distance : 100f), Color.red);
+
+        if (hit.collider != null)
         {
+            if (hit.collider.CompareTag("Player"))
+            {
+                Debug.Log("O raio atingiu o jogador.");
+                return true;
+            }
+            else
+            {
+                Debug.Log("O raio atingiu um obstáculo.");
+                return false;
+            }
+        }
+        else
+        {
+            Debug.Log("O raio não atingiu nada.");
             return false;
         }
-
-        Debug.Log("Hehe, to te vendo");
-
-        return true;
     }
 
     private void moveEnemy()
