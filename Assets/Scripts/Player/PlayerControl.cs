@@ -80,4 +80,13 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    public void DeadCamera()
+    {
+        // Crie uma nova posição com a posição X e Y atuais e defina o eixo Z como 1.45f
+        Vector3 newPosition = new Vector3(transform.position.x, transform.position.y, -0.06f);
+    
+        // Atribua a nova posição à câmera
+        transform.position = newPosition;
+    }
+
 }

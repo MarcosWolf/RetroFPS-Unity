@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
         UIManager.instance.Crosshair.gameObject.SetActive(false);
         weaponControls.InactiveWeapon();
         Musics.instance.StopMusic();
+        PlayerControl.instance.DeadCamera();
         Debug.Log("Game Over! Você morreu.");
     }
 }
