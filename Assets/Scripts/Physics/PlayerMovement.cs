@@ -1,29 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed;
+    public float moveSpeed = 5f;
 
-    void Start()
+    private Rigidbody2D rb;
+
+    private void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
     {
-        if (GameManager.instance.isPlayerAlive)
-        {
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
+        /*
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-            Vector3 inputVector = new Vector3(verticalInput, -horizontalInput, 0).normalized;
-            Vector3 playerMovement = inputVector * moveSpeed * Time.deltaTime;
+        Vector3 cameraForward = Camera.main.transform.forward;
+        Vector3 cameraRight = Camera.main.transform.right;
 
-            //Vector3 playerMovement = new Vector3(verticalInput, -horizontalInput, 0) * moveSpeed * Time.deltaTime;
+        cameraForward.z = 0;
+        cameraRight.z = 0;
 
-            transform.Translate(playerMovement);
-        }
+        Vector3 moveDirection = (cameraForward * verticalInput + cameraRight * horizontalInput).normalized;
+
+
+        Vector3 movement = new Vector3(verticalInput, -horizontalInput, 0f) * moveSpeed;
+
+        // Aplica a força ao Rigidbody para mover o personagem
+        rb.velocity = moveDirection * moveSpeed;
+        */
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        Vector3 cameraForward = Camera.main.transform.forward;
+        Vector3 cameraRight = Camera.main.transform.right;
+
+        cameraForward.z = 0;
+        cameraRight.z = 0;
+
+        Vector3 moveDirection = (cameraForward * verticalInput + cameraRight * horizontalInput).normalized;
+
+
+        Vector3 movement = new Vector3(verticalInput, -horizontalInput, 0f) * moveSpeed;
+
+        // Aplica a força ao Rigidbody para mover o personagem
+        rb.velocity = moveDirection * moveSpeed;
     }
+
 }
