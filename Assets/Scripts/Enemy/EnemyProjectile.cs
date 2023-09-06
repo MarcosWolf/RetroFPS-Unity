@@ -41,5 +41,10 @@ public class EnemyProjectile : MonoBehaviour
             Debug.Log("Tomou dano de " + damageProjectile);
         }
 
+        if (other.gameObject.CompareTag("Obstacle"))
+        {
+            Destroy(gameObject);
+        }
+
     }
 }

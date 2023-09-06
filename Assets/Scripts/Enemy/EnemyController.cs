@@ -35,7 +35,7 @@ public class EnemyController : MonoBehaviour
     public float intervalBetweenPath;
     public float intervalCurrentTime;
 
-    private Collider[] enemyCollidersChildren, enemyCollidersParent;
+    private Collider[] enemyCollidersChildren;
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +46,6 @@ public class EnemyController : MonoBehaviour
         onChase = false;
 
         enemyCollidersChildren = GetComponentsInChildren<Collider>();
-        enemyCollidersParent = GetComponentsInParent<Collider>();
     }
 
     // Update is called once per frame
@@ -85,7 +84,7 @@ public class EnemyController : MonoBehaviour
                 if (onChase && canSeePlayer())
                 {
                     Vector3 targetPosition = PlayerControl.instance.transform.position;
-                    targetPosition.z = -0.5f;
+                    targetPosition.z = -0.7f;
                     
                     Vector3 directionToPlayer = targetPosition - transform.position;
 
@@ -236,12 +235,7 @@ public class EnemyController : MonoBehaviour
                 {
                     collider.gameObject.SetActive(false);
                 }
-
-                foreach (Collider colliderParent in enemyCollidersParent)
-                {
-                    Debug.Log("OIII");
-                    colliderParent.gameObject.SetActive(false);
-                }
+                gameObject.GetComponent<CircleCollider2D>().enabled = false;
             }
         }
     }
