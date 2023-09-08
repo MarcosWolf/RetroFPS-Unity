@@ -73,18 +73,17 @@ public class EnemyController : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                Debug.Log("O raio atingiu o jogador.");
                 return true;
             }
             else
             {
-                Debug.Log("O raio atingiu um obstáculo.");
+                CancelInvoke(nameof(rangedAttackPlayer));
                 return false;
             }
         }
         else
         {
-            Debug.Log("O raio não atingiu nada.");
+            CancelInvoke(nameof(rangedAttackPlayer));
             return false;
         }
     }
@@ -93,14 +92,15 @@ public class EnemyController : MonoBehaviour
     {
         if (isAlive)
         {
-            if (canMove)
+            if (canSeePlayer())
             {
-                if (onChase && canSeePlayer())
+                if (onChase)
                 {
                     Vector3 targetPosition = PlayerControl.instance.transform.position;
                     targetPosition.z = -0.7f;
                     
                     Vector3 directionToPlayer = targetPosition - transform.position;
+                    targetPosition.z = transform.position.z;
 
                     float distanceToPlayer = directionToPlayer.magnitude;
 
@@ -113,25 +113,28 @@ public class EnemyController : MonoBehaviour
                     }
                     else
                     {
-                        //enemyAnimator.SetTrigger("EnemyIdle");
                         idleEnemy();
                     }
-                    
                 }
-                else
+            }
+            else
+            {
+                if (enemyPath.Length > 0)
                 {
-                    Vector3 targetPosition = enemyPath[currentPath].position;
-                    targetPosition.z = -0.5f;
-                    transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemySpeed * Time.deltaTime);
+                    
+                    Vector3 pathPosition = enemyPath[currentPath].position;
+                    
+                    transform.position = Vector2.MoveTowards(transform.position, pathPosition, enemySpeed * Time.deltaTime);
 
+                    
                     if (transform.position.y != enemyPath[currentPath].position.y )
                     {
                         enemyAnimator.SetTrigger("EnemyWalk");
                     }
+                    
 
                     if (transform.position.y == enemyPath[currentPath].position.y )
                     {
-                        //enemyAnimator.SetTrigger("EnemyIdle");
                         idleEnemy();
                     }
 
@@ -146,7 +149,6 @@ public class EnemyController : MonoBehaviour
 
     private void idleEnemy()
     {
-        //canMove = false;
         enemyAnimator.SetTrigger("EnemyIdle");
 
         intervalCurrentTime -= Time.deltaTime;
@@ -166,20 +168,24 @@ public class EnemyController : MonoBehaviour
 
     private void checkDistance()
     {
-        if (Vector3.Distance(transform.position, PlayerControl.instance.transform.position) < chasePlayerDistance )
+        if (canSeePlayer())
         {
-            onChase = true;
-                        
-            if (Vector3.Distance(transform.position, PlayerControl.instance.transform.position) < meleeAttackDistance )
+            if (Vector3.Distance(transform.position, PlayerControl.instance.transform.position) < chasePlayerDistance )
             {
-                meleeAttackPlayer();
-            }
+                onChase = true;
+                            
+                if (Vector3.Distance(transform.position, PlayerControl.instance.transform.position) < meleeAttackDistance )
+                {
+                    meleeAttackPlayer();
+                }
 
-            if (Vector3.Distance(transform.position, PlayerControl.instance.transform.position) < rangedAttackDistance )
-            {
-                rangedAttackPlayer();
+                if (Vector3.Distance(transform.position, PlayerControl.instance.transform.position) < rangedAttackDistance )
+                {
+                    //rangedAttackPlayer();
+                    Invoke(nameof(rangedAttackPlayer), 0.7f);
+                }
+                
             }
-              
         }
         else
         {

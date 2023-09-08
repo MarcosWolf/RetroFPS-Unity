@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
 
     private Rigidbody2D rb;
+    private Vector3 moveDirection;
 
     private void Start()
     {
@@ -22,17 +23,39 @@ public class PlayerMovement : MonoBehaviour
         cameraForward.z = 0;
         cameraRight.z = 0;
 
-        Vector3 moveDirection = (cameraForward * verticalInput + cameraRight * horizontalInput).normalized;
-
-        Vector3 movement = new Vector3(verticalInput, -horizontalInput, 0f) * moveSpeed;
-
-        // Aplica a força ao Rigidbody para mover o personagem
-        if (GameManager.instance.isPlayerAlive)
+        if (moveDirection.sqrMagnitude > 1f)
         {
-            rb.velocity = moveDirection * moveSpeed;
-        } else {
+            moveDirection.Normalize();
+        }
+
+        moveDirection = cameraForward * verticalInput + cameraRight * horizontalInput;
+
+        if (moveDirection.sqrMagnitude < 0.01f)
+        {
             rb.velocity = Vector2.zero;
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (GameManager.instance.isPlayerAlive)
+        {
+            Vector2 clampedVelocity = Vector2.ClampMagnitude(moveDirection * moveSpeed, moveSpeed);
+            rb.velocity = clampedVelocity;
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
+
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
+            rb.velocity = Vector2.zero;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        rb.velocity = Vector2.zero;
+    }
 }
