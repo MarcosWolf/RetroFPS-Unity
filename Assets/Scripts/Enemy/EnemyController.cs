@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
 
     public ImpSfx impSfx;
 
+    public Rigidbody2D rb;
     public float enemySpeed;
     public Transform[] enemyPath; 
     public int currentPath;
@@ -43,6 +44,8 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+
         isAlive = true;
         isIdle = false;
         canMove = true;
@@ -106,9 +109,14 @@ public class EnemyController : MonoBehaviour
 
                     float stopDistance = 6f;
 
+                    rb.velocity = Vector2.zero;
+
                     if (distanceToPlayer > stopDistance)
                     {
-                        transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemySpeed * Time.deltaTime);    
+                        Vector2 moveDirection = directionToPlayer.normalized;
+                        rb.velocity = moveDirection * enemySpeed; // Aplique velocidade usando Rigidbody
+                        //transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemySpeed * Time.deltaTime);
+                        Debug.Log("Andando");    
                         enemyAnimator.SetTrigger("EnemyWalk");
                     }
                     else
@@ -123,18 +131,21 @@ public class EnemyController : MonoBehaviour
                 {
                     
                     Vector3 pathPosition = enemyPath[currentPath].position;
-                    
-                    transform.position = Vector2.MoveTowards(transform.position, pathPosition, enemySpeed * Time.deltaTime);
 
+                    rb.velocity = Vector2.zero; // Pare o movimento atual
                     
-                    if (transform.position.y != enemyPath[currentPath].position.y )
+                    //transform.position = Vector2.MoveTowards(transform.position, pathPosition, enemySpeed * Time.deltaTime);
+
+                    Vector3 moveDirection = pathPosition - transform.position;
+                    moveDirection.z = 0f;
+                    
+                    if (moveDirection.magnitude > 0.1f)
                     {
+                        Vector2 moveVector = moveDirection.normalized * enemySpeed;
+                        rb.velocity = moveVector; // Aplique velocidade usando Rigidbody
                         enemyAnimator.SetTrigger("EnemyWalk");
                     }
-                    
-
-                    if (transform.position.y == enemyPath[currentPath].position.y )
-                    {
+                    else {
                         idleEnemy();
                     }
 
@@ -144,6 +155,10 @@ public class EnemyController : MonoBehaviour
                     }
                 }
             }
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
         }
     }
 

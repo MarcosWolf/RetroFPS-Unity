@@ -110,7 +110,6 @@ public class Weapon : MonoBehaviour
                     RaycastHit hitTarget;
                     
                     Vector3 shootDirection = ray.direction.normalized;
-                    Debug.Log(shootDirection);
                     Vector3 playerPosition = PlayerControl.instance.transform.position;
 
                     int obstacleLayerMask = LayerMask.GetMask("Obstacle");
