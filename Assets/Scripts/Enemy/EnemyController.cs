@@ -103,7 +103,7 @@ public class EnemyController : MonoBehaviour
                     targetPosition.z = -0.7f;
                     
                     Vector3 directionToPlayer = targetPosition - transform.position;
-                    targetPosition.z = transform.position.z;
+                    directionToPlayer.z = -0.7f;
 
                     float distanceToPlayer = directionToPlayer.magnitude;
 
@@ -114,9 +114,16 @@ public class EnemyController : MonoBehaviour
                     if (distanceToPlayer > stopDistance)
                     {
                         Vector2 moveDirection = directionToPlayer.normalized;
-                        rb.velocity = moveDirection * enemySpeed; // Aplique velocidade usando Rigidbody
-                        //transform.position = Vector2.MoveTowards(transform.position, targetPosition, enemySpeed * Time.deltaTime);
-                        Debug.Log("Andando");    
+
+                        RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection, 1f, obstacleLayer);
+
+                        if (hit.collider != null)
+                        {
+                            Vector2 avoidanceDirection = Vector2.Perpendicular(moveDirection);
+                            moveDirection += avoidanceDirection * 0.5f;
+                        }
+
+                        rb.velocity = moveDirection * enemySpeed;
                         enemyAnimator.SetTrigger("EnemyWalk");
                     }
                     else
