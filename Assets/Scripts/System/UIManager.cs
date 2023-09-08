@@ -8,6 +8,10 @@ public class UIManager : MonoBehaviour
 
     public GameObject Crosshair;
 
+    // Camera control
+    // Head bobbing
+    public Animator weaponPanelAnimator;
+
     // Shotgun capsule
     public GameObject fallingObjectPrefab;
     public Transform capsuleSpawnPoint;
@@ -52,5 +56,35 @@ public class UIManager : MonoBehaviour
             newObject.transform.SetParent(transform);
         }
     }
-    
+
+    public void headBobbing()
+    {
+        if (WeaponControls.instance.playerIsShooting())
+        {
+            if (WeaponControls.instance.currentWeaponIndex == 1)
+            {
+                // Shotgun
+                weaponPanelAnimator.Play("ShotgunShoot");
+                
+
+            } else if (WeaponControls.instance.currentWeaponIndex == 2)
+            {
+                // Smg
+                weaponPanelAnimator.Play("SmgShoot");
+                
+            }
+        } else {
+            if (PlayerMovement.instance.PlayerIsMoving())
+            {
+                weaponPanelAnimator.Play("MovingCamera");
+            } else {
+                weaponPanelAnimator.Play("IdleCamera");
+            }
+        }        
+
+    }
+
+    void update()
+    {
+    }
 }

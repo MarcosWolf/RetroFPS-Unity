@@ -2,10 +2,17 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement instance;
+
     public float moveSpeed = 5f;
 
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private Vector3 moveDirection;
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -38,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        PlayerIsMoving();
+        
         if (GameManager.instance.isPlayerAlive)
         {
             Vector2 clampedVelocity = Vector2.ClampMagnitude(moveDirection * moveSpeed, moveSpeed);
@@ -57,5 +66,14 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         rb.velocity = Vector2.zero;
+    }
+
+    public bool PlayerIsMoving()
+    {
+        if (rb.velocity.magnitude == 0)
+        {
+            return false;
+        }
+        return true;
     }
 }

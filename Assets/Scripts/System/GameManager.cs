@@ -32,6 +32,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isPlayerAlive)
+        {
+            UIManager.instance.headBobbing();
+        }
     }
 
     public bool getKey(int KeyID)
