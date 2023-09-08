@@ -47,7 +47,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -119,7 +119,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.55, y: 9.030001, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7223441251603486395}
@@ -258,13 +258,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 4383292500890446474}
   impSfx: {fileID: 4729710243244535363}
-  enemySpeed: 10
+  enemySpeed: 6
   enemyPath:
+  - {fileID: 0}
   - {fileID: 0}
   currentPath: 0
   projectileOrigin: {fileID: 5496701571750788551}
   projectile: {fileID: 5768171187892020187, guid: 293a89c0aab9a7e4597af6413593d4fd, type: 3}
-  meleeAttackDistance: 8
+  meleeAttackDistance: 5
   rangedAttackDistance: 100
   chasePlayerDistance: 100
   attackDelay: 1.5
@@ -278,6 +279,12 @@ MonoBehaviour:
   currentEnemyHP: 300
   intervalBetweenPath: 3
   intervalCurrentTime: 3
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!95 &4383292500890446474
 Animator:
   serializedVersion: 5
@@ -325,4 +332,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
