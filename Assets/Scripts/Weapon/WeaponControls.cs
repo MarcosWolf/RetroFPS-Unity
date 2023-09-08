@@ -5,12 +5,20 @@ using TMPro;
 
 public class WeaponControls : MonoBehaviour
 {
+    public static WeaponControls instance;
+
     public Weapon[] weapons;
     public int currentWeaponIndex;
+    public bool isShooting;
 
     // Hud
     public TMP_Text ammoText;
     public TMP_Text weaponText;
+
+    void Awake()
+    {
+        instance = this;
+    }
     
     void Start()
     {
@@ -41,7 +49,13 @@ public class WeaponControls : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
+            isShooting = true;
             weapons[currentWeaponIndex].Shoot();
+        }
+
+        if (Input.GetButtonUp("Fire1"))
+        {
+            isShooting = false;
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -97,6 +111,16 @@ public class WeaponControls : MonoBehaviour
     public bool getAmmo(int weapon, int ammoAmount)
     {
         if (weapons[weapon].GetAmmo(ammoAmount))
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public bool playerIsShooting()
+    {
+        if (isShooting == true)
         {
             return true;
         } else {
