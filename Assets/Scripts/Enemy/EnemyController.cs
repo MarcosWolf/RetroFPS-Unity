@@ -120,7 +120,16 @@ public class EnemyController : MonoBehaviour
                         if (hit.collider != null)
                         {
                             Vector2 avoidanceDirection = Vector2.Perpendicular(moveDirection);
-                            moveDirection += avoidanceDirection * 0.5f;
+                            moveDirection += avoidanceDirection * 1f;
+
+                            Vector2 newPosition = (Vector2)transform.position + moveDirection * Time.deltaTime * enemySpeed;
+
+                            RaycastHit2D newHit = Physics2D.Raycast(newPosition, moveDirection, 1f, obstacleLayer);
+
+                            if (newHit.collider == null)
+                            {
+                                rb.MovePosition(newPosition);
+                            }
                         }
 
                         rb.velocity = moveDirection * enemySpeed;
