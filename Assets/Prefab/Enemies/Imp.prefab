@@ -270,14 +270,15 @@ MonoBehaviour:
   projectile: {fileID: 5768171187892020187, guid: 293a89c0aab9a7e4597af6413593d4fd, type: 3}
   useProjectile: 1
   meleeAttackDistance: 5
-  rangedAttackDistance: 50
-  chasePlayerDistance: 50
+  rangedAttackDistance: 60
+  chasePlayerDistance: 90
   nearbySfxDistance: 20
   attackDelay: 1.5
   meleeAttackDamage: 45
   onChase: 0
   isAlive: 1
   isIdle: 0
+  isAttacking: 0
   canMove: 1
   hasAttacked: 0
   totalEnemyHP: 250
