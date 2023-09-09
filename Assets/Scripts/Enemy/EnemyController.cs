@@ -18,18 +18,25 @@ public class EnemyController : MonoBehaviour
     public GameObject projectile;
     public bool useProjectile;
 
+    public float maxAccuracy = 0.7f;
+    public float minAccuracy = 0.2f;
+
+    //public bool hasMeleeAttack;
+
     public float meleeAttackDistance;
     public float rangedAttackDistance;
     public float chasePlayerDistance;
     public float nearbySfxDistance;
     public float attackDelay;
 
+    public int rangedAttackDamage;
     public int meleeAttackDamage;
 
     public bool onChase;
 
     public bool isAlive;
     public bool isIdle;
+    public bool isAttacking = false;
     public bool canMove;
     public bool hasAttacked;
 
@@ -83,7 +90,6 @@ public class EnemyController : MonoBehaviour
             if (hit.collider.CompareTag("Player"))
             {
                 if (!sfxSightPlayed) {
-                    Debug.Log("Tocar som");
                     int randomValue = Random.Range(0, 2);
 
                     if (randomValue == 0)
@@ -93,7 +99,7 @@ public class EnemyController : MonoBehaviour
                         enemySfx.sfxEnemySight2();
                     }
                     sfxSightPlayed = true;
-                }
+                }                
                 
                 return true;
             }
@@ -108,6 +114,19 @@ public class EnemyController : MonoBehaviour
         {
             sfxSightPlayed = false;
             CancelInvoke(nameof(rangedAttackPlayer));
+            return false;
+        }
+    }
+
+    // Calcula precisão do tiro, para inimigos que não usam projeteis
+    private bool calculateAccuracy()
+    {
+        float distanceToPlayer = Vector3.Distance(transform.position, PlayerControl.instance.transform.position);
+        float currentAccuracy = Mathf.Lerp(maxAccuracy, minAccuracy, distanceToPlayer / rangedAttackDistance);
+        
+        if (Random.value < currentAccuracy) {
+            return true;
+        } else {
             return false;
         }
     }
@@ -154,8 +173,12 @@ public class EnemyController : MonoBehaviour
                             }
                         }
 
-                        rb.velocity = moveDirection * enemySpeed;
-                        enemyAnimator.SetTrigger("EnemyWalk");
+                        if (isAttacking) {
+                            rb.velocity = Vector2.zero;
+                        } else {
+                            rb.velocity = moveDirection * enemySpeed;
+                            enemyAnimator.SetTrigger("EnemyWalk");
+                        }
                     }
                     else
                     {
@@ -198,6 +221,11 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    private void resumeWalking()
+    {
+        isAttacking = false;
+    }
+
     private void idleEnemy()
     {
         enemyAnimator.SetTrigger("EnemyIdle");
@@ -232,18 +260,16 @@ public class EnemyController : MonoBehaviour
                     }
                 }
 
+                
                 if (Vector3.Distance(transform.position, PlayerControl.instance.transform.position) < nearbySfxDistance)
                 {
-                    //if (!sfxNearbyPlayed) {
-                        Debug.Log("GOGORO");
+                    // Colocar delay
                         enemySfx.sfxEnemyNearby();
-                        sfxNearbyPlayed = true;
-                    //}
                 }
+                
 
                 if (Vector3.Distance(transform.position, PlayerControl.instance.transform.position) < rangedAttackDistance )
                 {
-                    sfxNearbyPlayed = false;
                     Invoke(nameof(rangedAttackPlayer), 0.7f);
                 }
                 
@@ -259,15 +285,31 @@ public class EnemyController : MonoBehaviour
     {
         if (!hasAttacked && isAlive && canSeePlayer())
         {
+            Invoke("resumeWalking", 0.4f);
+
             if (useProjectile) {
+                isAttacking = true;
                 enemyAnimator.SetTrigger("EnemyAttack");
                 Instantiate(projectile, projectileOrigin.position, projectileOrigin.rotation);
-
                 enemySfx.enemyAttackRanged.Play();
-
                 hasAttacked = true;
 
                 Invoke(nameof(resetEnemyAttack), attackDelay);
+            } else {
+                isAttacking = true;
+                enemyAnimator.SetTrigger("EnemyAttack");
+                enemySfx.enemyAttackRanged.Play();
+
+                if (calculateAccuracy())
+                {
+                    PlayerControl.instance.HitPlayer(rangedAttackDamage);
+                }
+
+
+
+                hasAttacked = true;
+                Invoke(nameof(resetEnemyAttack), attackDelay);
+                
             }
         }
     }
@@ -276,6 +318,7 @@ public class EnemyController : MonoBehaviour
     {
         if (!hasAttacked && isAlive && canSeePlayer())
         {
+            
             enemyAnimator.SetTrigger("EnemyAttack");
             enemySfx.enemyAttackMelee.Play();
             PlayerControl.instance.HitPlayer(meleeAttackDamage);
@@ -337,14 +380,6 @@ public class EnemyController : MonoBehaviour
                 }
                 gameObject.GetComponent<CircleCollider2D>().enabled = false;
             }
-        }
-    }
-
-    private void callSfxEnemyNearby()
-    {
-        if (enemySfx != null)
-        {
-            enemySfx.sfxEnemyNearby();
         }
     }
 }

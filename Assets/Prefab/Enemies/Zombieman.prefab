@@ -203,15 +203,19 @@ MonoBehaviour:
   projectileOrigin: {fileID: 0}
   projectile: {fileID: 0}
   useProjectile: 0
+  maxAccuracy: 0.9
+  minAccuracy: 0.5
   meleeAttackDistance: 20
   rangedAttackDistance: 60
-  chasePlayerDistance: 60
+  chasePlayerDistance: 80
   nearbySfxDistance: 5
-  attackDelay: 1.4
+  attackDelay: 1.7
+  rangedAttackDamage: 15
   meleeAttackDamage: 0
   onChase: 0
   isAlive: 1
   isIdle: 0
+  isAttacking: 0
   canMove: 0
   hasAttacked: 0
   totalEnemyHP: 300
