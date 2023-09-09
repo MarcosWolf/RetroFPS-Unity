@@ -53,14 +53,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAttackMelee: {fileID: 0}
   enemyAttackRanged: {fileID: 0}
-  enemyDeath1: {fileID: 0}
-  enemyDeath2: {fileID: 0}
-  enemyDeath3: {fileID: 0}
+  enemyDeath:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   enemyHit: {fileID: 0}
   enemyNearby: {fileID: 0}
-  enemySight1: {fileID: 0}
-  enemySight2: {fileID: 0}
-  enemySight3: {fileID: 0}
+  enemySight:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!212 &3707372643756425734
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -206,7 +208,7 @@ MonoBehaviour:
   maxAccuracy: 0.9
   minAccuracy: 0.5
   meleeAttackDistance: 20
-  rangedAttackDistance: 60
+  rangedAttackDistance: 70
   chasePlayerDistance: 80
   nearbySfxDistance: 5
   attackDelay: 1.7
