@@ -96,7 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1157204369300270686}
   - component: {fileID: 6418537938650993361}
-  - component: {fileID: 4729710243244535363}
+  - component: {fileID: 3423887853327060614}
   - component: {fileID: 8932451693668171395}
   - component: {fileID: 9110634381512983349}
   - component: {fileID: 7799991840533627170}
@@ -178,7 +178,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4729710243244535363
+--- !u!114 &3423887853327060614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,16 +187,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 7121284092504941214}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7524370dd58c3a48b7e77f410a70312, type: 3}
+  m_Script: {fileID: 11500000, guid: b666b6064c36c594aa857fa4a1f0d238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impMelee: {fileID: 0}
-  impRanged: {fileID: 0}
-  impSight1: {fileID: 0}
-  impSight2: {fileID: 0}
-  impHit: {fileID: 0}
-  impDeath1: {fileID: 0}
-  impDeath2: {fileID: 0}
+  enemyAttackMelee: {fileID: 0}
+  enemyAttackRanged: {fileID: 0}
+  enemyDeath1: {fileID: 0}
+  enemyDeath2: {fileID: 0}
+  enemyDeath3: {fileID: 0}
+  enemyHit: {fileID: 0}
+  enemyNearby: {fileID: 0}
+  enemySight1: {fileID: 0}
+  enemySight2: {fileID: 0}
+  enemySight3: {fileID: 0}
 --- !u!58 &8932451693668171395
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -257,26 +260,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyAnimator: {fileID: 4383292500890446474}
-  impSfx: {fileID: 4729710243244535363}
+  enemyName: Imp
+  enemySfx: {fileID: 3423887853327060614}
+  rb: {fileID: 0}
   enemySpeed: 6
-  enemyPath:
-  - {fileID: 0}
-  - {fileID: 0}
+  enemyPath: []
   currentPath: 0
   projectileOrigin: {fileID: 5496701571750788551}
   projectile: {fileID: 5768171187892020187, guid: 293a89c0aab9a7e4597af6413593d4fd, type: 3}
+  useProjectile: 1
   meleeAttackDistance: 5
-  rangedAttackDistance: 100
-  chasePlayerDistance: 100
+  rangedAttackDistance: 50
+  chasePlayerDistance: 50
+  nearbySfxDistance: 20
   attackDelay: 1.5
-  meleeAttackDamage: 35
+  meleeAttackDamage: 45
   onChase: 0
   isAlive: 1
   isIdle: 0
   canMove: 1
   hasAttacked: 0
-  totalEnemyHP: 300
-  currentEnemyHP: 300
+  totalEnemyHP: 250
+  currentEnemyHP: 250
   intervalBetweenPath: 3
   intervalCurrentTime: 3
   playerLayer:
