@@ -20,7 +20,6 @@ public class WeaponControls : MonoBehaviour
     public TMP_Text weaponText;
 
     public delegate void AnimationFinishedHandler();
-    public event AnimationFinishedHandler OnAnimationFinished;
 
     void Awake()
     {
@@ -29,7 +28,6 @@ public class WeaponControls : MonoBehaviour
     
     void Start()
     {
-        SwitchWeapon(1);
     }
 
     // Update is called once per frame
@@ -57,12 +55,23 @@ public class WeaponControls : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             isShooting = true;
-            weapons[currentWeaponIndex].Shoot();
+
+            if (weapons[currentWeaponIndex].isContinuous)
+            {
+                weapons[currentWeaponIndex].StartShootingContinuous();
+            } else {
+                weapons[currentWeaponIndex].Shoot();
+            }
         }
 
         if (Input.GetButtonUp("Fire1"))
         {
             isShooting = false;
+
+            if (weapons[currentWeaponIndex].isContinuous)
+            {
+                weapons[currentWeaponIndex].StopShootingContinuous();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -242,7 +251,13 @@ public class WeaponControls : MonoBehaviour
     {
         if (isShooting == true)
         {
-            return true;
+            if (weapons[currentWeaponIndex].isContinuous)
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
         } else {
             return false;
         }

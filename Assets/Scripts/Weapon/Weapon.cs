@@ -11,6 +11,12 @@ public class Weapon : MonoBehaviour
     public int ammoPerRound;
     public int maxAmmo;
 
+    public bool isContinuous;
+
+    private bool isShootingContinuous = false;
+    private float timeBetweenContinuousShots = 0.13f; // Intervalo de tempo entre tiros contínuos
+    private float lastContinuousShotTime = 0f;
+
     private float lastShotTime = 0f;
     public float timeBetweenShots;
 
@@ -194,6 +200,33 @@ public class Weapon : MonoBehaviour
             }
         }
     }
+
+    public void StartShootingContinuous()
+    {
+        if (!isReloading && Time.time - lastContinuousShotTime >= timeBetweenContinuousShots)
+        {
+            isShootingContinuous = true;
+            StartCoroutine(ContinuousShooting());
+        }
+    }
+
+    public void StopShootingContinuous()
+    {
+        isShootingContinuous = false;
+    }
+
+    private IEnumerator ContinuousShooting()
+    {
+        while (isShootingContinuous)
+        {
+            Shoot();
+
+            lastContinuousShotTime = Time.time;
+
+            yield return new WaitForSeconds(timeBetweenContinuousShots);
+        }
+    }
+
 
     public void Reload()
     {

@@ -57,31 +57,57 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void removingWeapon()
+    {
+        weaponPanelAnimator.Play("RemovingWeapon");
+    }
+
+    public void gettingWeapon()
+    {
+        weaponPanelAnimator.Play("GettingWeapon");
+    }
+
+    public bool HasAnimationFinished(string animationName)
+    {
+        // Obtém informações do estado atual da animação
+        AnimatorStateInfo stateInfo = weaponPanelAnimator.GetCurrentAnimatorStateInfo(0);
+
+        // Verifica se o nome do estado atual corresponde ao nome da animação
+        return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 1.0f;
+    }
+
     public void headBobbing()
     {
-        if (WeaponControls.instance.playerIsShooting())
+        if (WeaponControls.instance.playerIsRemovingWeapon())
         {
-            if (WeaponControls.instance.currentWeaponIndex == 1)
+            removingWeapon();
+        }
+        else if (WeaponControls.instance.playerIsGettingWeapon())
+        {
+            gettingWeapon();
+        }
+        else {
+            if (WeaponControls.instance.playerIsShooting())
             {
-                // Shotgun
-                weaponPanelAnimator.Play("ShotgunShoot");
-                
-
-            } else if (WeaponControls.instance.currentWeaponIndex == 2)
-            {
-                // Smg
-                weaponPanelAnimator.Play("SmgShoot");
-                
+                if (WeaponControls.instance.currentWeaponIndex == 1)
+                {
+                    // Shotgun
+                    weaponPanelAnimator.Play("ShotgunShoot");
+                } else if (WeaponControls.instance.currentWeaponIndex == 2)
+                {
+                    // Smg
+                    weaponPanelAnimator.Play("SmgShoot");
+                }
             }
-        } else {
-            if (PlayerMovement.instance.PlayerIsMoving())
-            {
-                weaponPanelAnimator.Play("MovingCamera");
-            } else {
-                weaponPanelAnimator.Play("IdleCamera");
+            else {
+                if (PlayerMovement.instance.PlayerIsMoving())
+                {
+                    weaponPanelAnimator.Play("MovingCamera");
+                } else {
+                    weaponPanelAnimator.Play("IdleCamera");
+                }
             }
-        }        
-
+        }
     }
 
     void update()

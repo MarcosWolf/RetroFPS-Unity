@@ -10,7 +10,7 @@ public class SoundEffects : MonoBehaviour
 
     public AudioSource smgFire, smgSlide, smgReload1, smgReload2;
     public AudioSource shotgunFire, shotgunPump, shotgunReload;
-    public AudioSource casingDrop, shellDrop, weaponEmpty;
+    public AudioSource casingDrop, shellDrop, weaponEmpty, swapWeapon;
 
     void Awake()
     {
@@ -29,6 +29,7 @@ public class SoundEffects : MonoBehaviour
     public void sfxCasingDrop() { casingDrop.Play(); }
     public void sfxShellDrop() { shellDrop.Play(); }
     public void sfxWeaponEmpty() { weaponEmpty.Play(); }
+    public void sfxSwapWeapon() { swapWeapon.Play(); }
 
     // Smg
     public void sfxSmgFire() { smgFire.Play(); }
