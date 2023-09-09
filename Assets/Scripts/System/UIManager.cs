@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     // Head bobbing
     public Animator weaponPanelAnimator;
 
+    // Weapon control
+
     // Shotgun capsule
     public GameObject fallingObjectPrefab;
     public Transform capsuleSpawnPoint;
@@ -89,17 +91,20 @@ public class UIManager : MonoBehaviour
         else {
             if (WeaponControls.instance.playerIsShooting())
             {
-                if (WeaponControls.instance.currentWeaponIndex == 1)
+                if (WeaponControls.instance.setRecoil == true)
                 {
-                    // Shotgun
-                    weaponPanelAnimator.Play("ShotgunShoot");
-                } else if (WeaponControls.instance.currentWeaponIndex == 2)
-                {
-                    // Smg
-                    weaponPanelAnimator.Play("SmgShoot");
+                    Debug.Log("Aqui");
+                    if (WeaponControls.instance.currentWeaponIndex == 1)
+                    {
+                        weaponPanelAnimator.Play("ShotgunShoot");
+                    } else if (WeaponControls.instance.currentWeaponIndex == 2)
+                    {
+                        weaponPanelAnimator.Play("SmgShoot");
+                    }
                 }
             }
             else {
+
                 if (PlayerMovement.instance.PlayerIsMoving())
                 {
                     weaponPanelAnimator.Play("MovingCamera");

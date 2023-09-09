@@ -82,26 +82,34 @@ public class EnemyController : MonoBehaviour
         Vector2 directionToPlayer = PlayerControl.instance.transform.position - transform.position;
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToPlayer, Mathf.Infinity, playerLayer | obstacleLayer);
-
         Debug.DrawRay(transform.position, directionToPlayer.normalized * (hit.collider != null ? hit.distance : 100f), Color.red);
 
         if (isAlive && hit.collider != null)
         {
             if (hit.collider.CompareTag("Player"))
             {
-                if (!sfxSightPlayed) {
-                    int randomValue = Random.Range(0, 2);
+                // Calcule a porcentagem de visibilidade do jogador
+                float visibilityPercentage = CalculateVisibilityPercentage(hit.collider);
 
-                    if (randomValue == 0)
-                    {
-                        enemySfx.sfxEnemySight1();
-                    } else {
-                        enemySfx.sfxEnemySight2();
-                    }
-                    sfxSightPlayed = true;
-                }                
-                
-                return true;
+                if (visibilityPercentage >= 0.5f) // Se a visibilidade for maior ou igual a 50%
+                {                    
+                    if (!sfxSightPlayed) {
+                        if (enemySfx.enemySight.Length > 0)
+                        {
+                            int randomValue = Random.Range(0, enemySfx.enemySight.Length);
+                            enemySfx.enemySight[randomValue].Play();
+                            sfxSightPlayed = true;
+                        }
+                    }                
+                    
+                    return true;
+                }
+                else
+                {
+                    sfxSightPlayed = false;
+                    CancelInvoke(nameof(rangedAttackPlayer));
+                    return false;
+                }
             }
             else
             {
@@ -130,6 +138,31 @@ public class EnemyController : MonoBehaviour
             return false;
         }
     }
+
+    float CalculateVisibilityPercentage(Collider2D playerCollider)
+    {
+        // Converta a posição do inimigo e o centro do collider do jogador para Vector2
+        Vector2 enemyPosition = new Vector2(transform.position.x, transform.position.y);
+        Vector2 playerCenter = playerCollider.bounds.center;
+
+        // Calcule o vetor do inimigo até o centro do collider do jogador
+        Vector2 enemyToPlayer = playerCenter - enemyPosition;
+
+        // Calcule o tamanho do raio de detecção do inimigo
+        float detectionRadius = enemyToPlayer.magnitude;
+
+        // Calcule a área de interseção entre o raio de detecção e o collider do jogador
+        float overlapArea = Mathf.PI * detectionRadius * detectionRadius;
+
+        // Calcule a área total do collider do jogador
+        float playerArea = playerCollider.bounds.size.x * playerCollider.bounds.size.y;
+
+        // Calcule a porcentagem de visibilidade
+        float visibilityPercentage = overlapArea / playerArea;
+
+        return visibilityPercentage;
+    }
+
 
     private void moveEnemy()
     {
@@ -255,7 +288,7 @@ public class EnemyController : MonoBehaviour
                             
                 if (Vector3.Distance(transform.position, PlayerControl.instance.transform.position) < meleeAttackDistance )
                 {
-                    if (enemyName == "Imp") {
+                    if (enemyName == "Imp" || enemyName == "Demon") {
                         meleeAttackPlayer();
                     }
                 }
@@ -264,7 +297,8 @@ public class EnemyController : MonoBehaviour
                 if (Vector3.Distance(transform.position, PlayerControl.instance.transform.position) < nearbySfxDistance)
                 {
                     // Colocar delay
-                        enemySfx.sfxEnemyNearby();
+                        //enemySfx.enemyNearby.Play();
+                        //Debug.Log("Nearby");
                 }
                 
 
@@ -305,8 +339,6 @@ public class EnemyController : MonoBehaviour
                     PlayerControl.instance.HitPlayer(rangedAttackDamage);
                 }
 
-
-
                 hasAttacked = true;
                 Invoke(nameof(resetEnemyAttack), attackDelay);
                 
@@ -341,7 +373,7 @@ public class EnemyController : MonoBehaviour
             currentEnemyHP -= enemyDamageTaken;
             
             if (currentEnemyHP > 0 ) {
-                enemySfx.sfxEnemyHit();
+                enemySfx.enemyHit.Play();
                 enemyAnimator.SetTrigger("EnemyHit");
             }
 
@@ -351,26 +383,10 @@ public class EnemyController : MonoBehaviour
                 onChase = false;
                 canMove = false;
 
-                if (enemyName == "Imp")
+                if (enemySfx.enemyDeath.Length > 0)
                 {
-                    if (Random.Range(0, 2) == 0)
-                    {
-                        enemySfx.enemyDeath1.Play();
-                    } else {
-                        enemySfx.enemyDeath2.Play();
-                    }
-                } else if (enemyName == "Zombieman")
-                {
-                    int randomValue = Random.Range(0, 3);
-
-                    if (randomValue == 0)
-                    {
-                        enemySfx.enemyDeath1.Play();
-                    } else if (randomValue == 1) {
-                        enemySfx.enemyDeath2.Play();
-                    } else {
-                        enemySfx.enemyDeath3.Play();
-                    }
+                    int randomValue = Random.Range(0, enemySfx.enemyDeath.Length);
+                    enemySfx.enemyDeath[randomValue].Play();
                 }
 
                 enemyAnimator.SetTrigger("EnemyDead");

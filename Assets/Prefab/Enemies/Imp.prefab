@@ -192,14 +192,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAttackMelee: {fileID: 0}
   enemyAttackRanged: {fileID: 0}
-  enemyDeath1: {fileID: 0}
-  enemyDeath2: {fileID: 0}
-  enemyDeath3: {fileID: 0}
+  enemyDeath:
+  - {fileID: 0}
+  - {fileID: 0}
   enemyHit: {fileID: 0}
   enemyNearby: {fileID: 0}
-  enemySight1: {fileID: 0}
-  enemySight2: {fileID: 0}
-  enemySight3: {fileID: 0}
+  enemySight:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!58 &8932451693668171395
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -263,17 +263,20 @@ MonoBehaviour:
   enemyName: Imp
   enemySfx: {fileID: 3423887853327060614}
   rb: {fileID: 0}
-  enemySpeed: 6
+  enemySpeed: 7
   enemyPath: []
   currentPath: 0
   projectileOrigin: {fileID: 5496701571750788551}
   projectile: {fileID: 5768171187892020187, guid: 293a89c0aab9a7e4597af6413593d4fd, type: 3}
   useProjectile: 1
-  meleeAttackDistance: 5
-  rangedAttackDistance: 60
+  maxAccuracy: 0.7
+  minAccuracy: 0.2
+  meleeAttackDistance: 8
+  rangedAttackDistance: 80
   chasePlayerDistance: 90
   nearbySfxDistance: 20
   attackDelay: 1.5
+  rangedAttackDamage: 0
   meleeAttackDamage: 45
   onChase: 0
   isAlive: 1

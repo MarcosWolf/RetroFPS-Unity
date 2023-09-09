@@ -339,4 +339,9 @@ public class Weapon : MonoBehaviour
             return false;
         }
     }
+
+    public void WeaponRecoil()
+    {
+        WeaponControls.instance.WeaponRecoil();
+    }
 }

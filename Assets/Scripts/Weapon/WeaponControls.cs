@@ -15,6 +15,8 @@ public class WeaponControls : MonoBehaviour
     public bool isRemovingWeapon;
     public bool isGettingWeapon;
 
+    public bool setRecoil = false;
+
     // Hud
     public TMP_Text ammoText;
     public TMP_Text weaponText;
@@ -71,6 +73,7 @@ public class WeaponControls : MonoBehaviour
             if (weapons[currentWeaponIndex].isContinuous)
             {
                 weapons[currentWeaponIndex].StopShootingContinuous();
+
             }
         }
 
@@ -101,7 +104,13 @@ public class WeaponControls : MonoBehaviour
     {
         if (GameManager.instance.isPlayerAlive)
         {
-            if (weapons[currentWeaponIndex].isReloading == false )
+            if (weapons[currentWeaponIndex].isContinuous)
+            {
+                weapons[currentWeaponIndex].StopShootingContinuous();
+
+            }
+            
+            if (weapons[currentWeaponIndex].isReloading == false && playerIsShooting() == false)
             {
                 if (newWeaponIndex >= 0 && newWeaponIndex < weapons.Length)
                 {
@@ -249,17 +258,21 @@ public class WeaponControls : MonoBehaviour
 
     public bool playerIsShooting()
     {
-        if (isShooting == true)
+        return isShooting;
+    }    
+
+    public bool WeaponRecoil()
+    {
+        if (setRecoil == false)
         {
-            if (weapons[currentWeaponIndex].isContinuous)
-            {
-                return true;
-            }
-            else {
-                return false;
-            }
+            Debug.Log("Ativando recuo");
+            setRecoil = true;
+            return true;
         } else {
+            Debug.Log("Desativando Recuo");
+            setRecoil = false;
             return false;
         }
     }
+
 }
