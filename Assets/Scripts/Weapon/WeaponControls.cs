@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class WeaponControls : MonoBehaviour
@@ -11,9 +12,15 @@ public class WeaponControls : MonoBehaviour
     public int currentWeaponIndex;
     public bool isShooting;
 
+    public bool isRemovingWeapon;
+    public bool isGettingWeapon;
+
     // Hud
     public TMP_Text ammoText;
     public TMP_Text weaponText;
+
+    public delegate void AnimationFinishedHandler();
+    public event AnimationFinishedHandler OnAnimationFinished;
 
     void Awake()
     {
@@ -61,7 +68,6 @@ public class WeaponControls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             weapons[currentWeaponIndex].Reload();
-            //StartCoroutine(weapons[currentWeaponIndex].Reload());
         }
 
         if (Input.GetKeyDown(KeyCode.K))
@@ -86,20 +92,114 @@ public class WeaponControls : MonoBehaviour
     {
         if (GameManager.instance.isPlayerAlive)
         {
-            if (newWeaponIndex >= 0 && newWeaponIndex < weapons.Length)
+            if (weapons[currentWeaponIndex].isReloading == false )
             {
-                if (currentWeaponIndex != newWeaponIndex)
+                if (newWeaponIndex >= 0 && newWeaponIndex < weapons.Length)
                 {
-                    if (weapons[newWeaponIndex].isUnlocked) {
-                        weapons[currentWeaponIndex].gameObject.SetActive(false);
-                        currentWeaponIndex = newWeaponIndex;
-                        weapons[currentWeaponIndex].gameObject.SetActive(true);
-                        UIManager.instance.Crosshair.gameObject.SetActive(true);
-                    } else {
-                        Debug.Log("Arma bloqueada ");
+                    if (currentWeaponIndex != newWeaponIndex)
+                    {
+                        if (weapons[newWeaponIndex].isUnlocked) {
+                            isRemovingWeapon = true;
+
+                            StartCoroutine(WaitForRemovingWeaponToFinish(() =>
+                            {
+                                //SetCanvasImageVisibility(weapons[currentWeaponIndex].gameObject, false);
+                                SetObjectVisibility(weapons[currentWeaponIndex].gameObject, false);
+                                Debug.Log("Antiga arma era: " + currentWeaponIndex);
+                                //weapons[currentWeaponIndex].gameObject.SetActive(false);
+                                currentWeaponIndex = newWeaponIndex;
+                                Debug.Log("Arma atual é: " + currentWeaponIndex);
+                                isRemovingWeapon = false;
+
+                                StartCoroutine(ActivateNewWeapon());
+                            }));
+                        } else {
+                            Debug.Log("Arma bloqueada ");
+                        }
                     }
                 }
             }
+        }
+    }
+
+    private IEnumerator WaitForRemovingWeaponToFinish(System.Action onAnimationFinished)
+    {
+        // Espere até que a animação "RemovingWeapon" tenha terminado
+        while (!UIManager.instance.HasAnimationFinished("RemovingWeapon"))
+        {
+            yield return null;
+        }
+
+        // Chame o evento quando a animação terminar
+        onAnimationFinished?.Invoke();
+    }
+
+    private IEnumerator WaitForGettingWeaponToFinish(System.Action onAnimationFinished)
+    {
+        // Espere até que a animação "RemovingWeapon" tenha terminado
+        while (!UIManager.instance.HasAnimationFinished("GettingWeapon"))
+        {
+            yield return null;
+        }
+
+        // Chame o evento quando a animação terminar
+        onAnimationFinished?.Invoke();
+    }
+
+    private IEnumerator ActivateNewWeapon()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        Image image = weapons[currentWeaponIndex].GetComponent<Image>();
+
+        isGettingWeapon = true;
+        
+        yield return new WaitForSeconds(0.1f);
+
+        if (image != null)
+        {
+            image.enabled = true;
+        }
+
+        StartCoroutine(WaitForGettingWeaponToFinish(() =>
+        {
+            isGettingWeapon = false;
+            UIManager.instance.Crosshair.gameObject.SetActive(true);
+            SoundEffects.instance.sfxSwapWeapon();
+        }));
+    }
+
+    private void SetObjectVisibility(GameObject obj, bool isVisible)
+    {
+        // Obtém o componente Renderer do objeto
+        Renderer renderer = obj.GetComponent<Renderer>();
+
+        if (renderer != null)
+        {
+            // Define a visibilidade do componente Renderer
+            renderer.enabled = isVisible;
+        }
+
+        // Obtém o componente Image do objeto
+        Image image = obj.GetComponent<Image>();
+
+        if (image != null)
+        {
+            // Define a visibilidade da imagem
+            image.enabled = isVisible;
+        }
+    }
+
+    public bool isWeaponActive()
+    {
+        GameObject obj = weapons[currentWeaponIndex].gameObject;
+        Image image = obj.GetComponent<Image>();
+
+        if (image.enabled)
+        {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -111,6 +211,26 @@ public class WeaponControls : MonoBehaviour
     public bool getAmmo(int weapon, int ammoAmount)
     {
         if (weapons[weapon].GetAmmo(ammoAmount))
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public bool playerIsRemovingWeapon()
+    {
+        if (isRemovingWeapon == true)
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public bool playerIsGettingWeapon()
+    {
+        if (isGettingWeapon == true)
         {
             return true;
         } else {

@@ -16,7 +16,7 @@ public class Weapon : MonoBehaviour
 
     public bool isUnlocked;
 
-    private bool isReloading = false;
+    public bool isReloading = false;
     private bool pumpReload;
 
     private bool canShot;
@@ -81,112 +81,115 @@ public class Weapon : MonoBehaviour
     public void Shoot()
     {
         if (GameManager.instance.isPlayerAlive) {
-            if (Time.time - lastShotTime >= timeBetweenShots)
+            if (!WeaponControls.instance.playerIsRemovingWeapon() && !WeaponControls.instance.playerIsGettingWeapon() && WeaponControls.instance.isWeaponActive())
             {
-                if (isReloading) {
-                    isReloading = false;
-                }
-
-                if (weaponName == "Smg") {
-                    if (weaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("SubmachineSlide")) {
-                        canShot = false;
-                    } else {
-                        canShot = true;
+                if (Time.time - lastShotTime >= timeBetweenShots)
+                {
+                    if (isReloading) {
+                        isReloading = false;
                     }
-                }
 
-                if (weaponName == "Shotgun") {
-                    if (weaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("ShotgunForend")) {
-                        canShot = false;
-                    } else {
-                        canShot = true;
+                    if (weaponName == "Smg") {
+                        if (weaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("SubmachineSlide")) {
+                            canShot = false;
+                        } else {
+                            canShot = true;
+                        }
                     }
-                    
-                }
 
-                if (currentAmmo > 0 && canShot) {
-                    //Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
-                    Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-                    RaycastHit hitTarget;
-                    
-                    Vector3 shootDirection = ray.direction.normalized;
-                    Vector3 playerPosition = PlayerControl.instance.transform.position;
+                    if (weaponName == "Shotgun") {
+                        if (weaponAnimator.GetCurrentAnimatorStateInfo(0).IsName("ShotgunForend")) {
+                            canShot = false;
+                        } else {
+                            canShot = true;
+                        }
+                        
+                    }
 
-                    int obstacleLayerMask = LayerMask.GetMask("Obstacle");
+                    if (currentAmmo > 0 && canShot) {
+                        //Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+                        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+                        RaycastHit hitTarget;
+                        
+                        Vector3 shootDirection = ray.direction.normalized;
+                        Vector3 playerPosition = PlayerControl.instance.transform.position;
+
+                        int obstacleLayerMask = LayerMask.GetMask("Obstacle");
 
 
 
-                    if (weaponName == "Smg")
-                    {
-                        float randomSpreadAngle = Random.Range(-spreadAngle, spreadAngle);
-
-                        Vector3 randomSpreadDirection = Quaternion.Euler(0f, 0f, randomSpreadAngle) * shootDirection;
-
-                        // Calcula a posição de início do projetil, que é a posição do jogador
-                        Vector3 spawnPosition = playerPosition + (randomSpreadDirection * spawnOffset);
-
-                        // Instancia o projetil na posição do jogador
-                        GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);               
-
-                        // Obtém o componente Rigidbody do projetil e define a velocidade
-                        Rigidbody rb = projectile.GetComponent<Rigidbody>();
-                        rb.velocity = randomSpreadDirection * projectileSpeed;     
-                    } else if (weaponName == "Shotgun")
-                    {
-                        float spacing = 1f;
-
-                        for (int i = -1; i <= 1; i++)
+                        if (weaponName == "Smg")
                         {
                             float randomSpreadAngle = Random.Range(-spreadAngle, spreadAngle);
+
                             Vector3 randomSpreadDirection = Quaternion.Euler(0f, 0f, randomSpreadAngle) * shootDirection;
 
-                            Vector3 initialSpawnPosition = playerPosition + (randomSpreadDirection * spawnOffset);
+                            // Calcula a posição de início do projetil, que é a posição do jogador
+                            Vector3 spawnPosition = playerPosition + (randomSpreadDirection * spawnOffset);
 
-                            Vector3 spawnPosition = initialSpawnPosition + (randomSpreadDirection * spacing * i);
+                            // Instancia o projetil na posição do jogador
+                            GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);               
 
-                            GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
-
+                            // Obtém o componente Rigidbody do projetil e define a velocidade
                             Rigidbody rb = projectile.GetComponent<Rigidbody>();
-                            rb.velocity = randomSpreadDirection * projectileSpeed;
-                        }
-                    }
-
-                    
-                    if (Physics.Raycast(ray, out hitTarget))
-                    {                    
-                        
-                        if (hitTarget.collider.CompareTag("Enemy"))
+                            rb.velocity = randomSpreadDirection * projectileSpeed;     
+                        } else if (weaponName == "Shotgun")
                         {
+                            float spacing = 1f;
 
-                            AnimationRandom = Random.value;
-
-                            if (AnimationRandom <= 0.5f)
+                            for (int i = -1; i <= 1; i++)
                             {
-                                Instantiate(blood1, hitTarget.point, hitTarget.transform.rotation);
-                            }
-                            else
-                            {
-                                Instantiate(blood2, hitTarget.point, hitTarget.transform.rotation);
-                            }
+                                float randomSpreadAngle = Random.Range(-spreadAngle, spreadAngle);
+                                Vector3 randomSpreadDirection = Quaternion.Euler(0f, 0f, randomSpreadAngle) * shootDirection;
 
-                            hitTarget.transform.gameObject.GetComponentInParent<EnemyController>().HitEnemy(weaponDamage);
+                                Vector3 initialSpawnPosition = playerPosition + (randomSpreadDirection * spawnOffset);
+
+                                Vector3 spawnPosition = initialSpawnPosition + (randomSpreadDirection * spacing * i);
+
+                                GameObject projectile = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
+
+                                Rigidbody rb = projectile.GetComponent<Rigidbody>();
+                                rb.velocity = randomSpreadDirection * projectileSpeed;
+                            }
                         }
-                    }
 
-                    pumpReload = false;
-                    lastShotTime = Time.time;
-                    currentAmmo--;
-                    if (weaponName == "Shotgun") {
-                        SoundEffects.instance.sfxShotgunFire();
-                    } else if (weaponName == "Smg") {
-                        SoundEffects.instance.sfxSmgFire();
-                        UIManager.instance.SpawnBulletCasing();
-                        SoundEffects.instance.sfxCasingDrop();
+                        
+                        if (Physics.Raycast(ray, out hitTarget))
+                        {                    
+                            
+                            if (hitTarget.collider.CompareTag("Enemy"))
+                            {
+
+                                AnimationRandom = Random.value;
+
+                                if (AnimationRandom <= 0.5f)
+                                {
+                                    Instantiate(blood1, hitTarget.point, hitTarget.transform.rotation);
+                                }
+                                else
+                                {
+                                    Instantiate(blood2, hitTarget.point, hitTarget.transform.rotation);
+                                }
+
+                                hitTarget.transform.gameObject.GetComponentInParent<EnemyController>().HitEnemy(weaponDamage);
+                            }
+                        }
+
+                        pumpReload = false;
+                        lastShotTime = Time.time;
+                        currentAmmo--;
+                        if (weaponName == "Shotgun") {
+                            SoundEffects.instance.sfxShotgunFire();
+                        } else if (weaponName == "Smg") {
+                            SoundEffects.instance.sfxSmgFire();
+                            UIManager.instance.SpawnBulletCasing();
+                            SoundEffects.instance.sfxCasingDrop();
+                        }
+                        weaponAnimator.SetTrigger("WeaponFire");
                     }
-                    weaponAnimator.SetTrigger("WeaponFire");
-                }
-                else {
-                    SoundEffects.instance.sfxWeaponEmpty();
+                    else {
+                        SoundEffects.instance.sfxWeaponEmpty();
+                    }
                 }
             }
         }
