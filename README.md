@@ -44,7 +44,7 @@
   ## 🎨 Screenshots
 
 <p align="center">
-  <img src="" width="400px">
+  <img src="https://github.com/MarcosWolf/retroFPS/assets/26293082/28ddc0b0-cd5b-486c-bccb-395499ebdd65" width="400px">
   <img src="" width="400px">
   <img src="" width="400px">
 </p>
