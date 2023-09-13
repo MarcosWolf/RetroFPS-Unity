@@ -23,7 +23,7 @@
    
    ## 🎯 Objetivo
 
-   Objetivo
+   Sempre fui um grande fã de franquias como Doom e Quake, pensei em desenvolver esse projeto como um hobby e para melhorar meus conhecimentos com a ferramenta Unity.
    
 </div>
 
@@ -33,7 +33,27 @@
 
 ## 📝 Funcionalidades
 
-- [x] Funcionalidade
+### Inimigos:
+- [x] Zombieman
+- [x] Imp
+- [x] Demon
+
+### Armas:
+- [x] Shotgun
+- [x] SMG
+- [ ] Pistol
+- [ ] Rocket Launcher
+
+### Items:
+- [x] Chaves Azul, vermelha e Amarela
+- [x] Kit médico
+- [ ] Munição
+- [ ] Armadura
+- [ ] Vida Extra
+
+### Mapa:
+- [X] Mapa de teste
+- [ ] Mapa Level 1
 
 </div>
 
@@ -48,7 +68,6 @@
   <img src="https://github.com/MarcosWolf/retroFPS/assets/26293082/0c8e8d36-42a3-412a-9602-984d1aa34d8f" width="400px">
   <img src="https://github.com/MarcosWolf/retroFPS/assets/26293082/bd724197-7a8a-4acc-b6b9-10a61c55dc16" width="400px">
 </p>
-
 
 </div>
 
