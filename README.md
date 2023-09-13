@@ -46,7 +46,7 @@
 <p align="center">
   <img src="https://github.com/MarcosWolf/retroFPS/assets/26293082/28ddc0b0-cd5b-486c-bccb-395499ebdd65" width="400px">
   <img src="https://github.com/MarcosWolf/retroFPS/assets/26293082/0c8e8d36-42a3-412a-9602-984d1aa34d8f" width="400px">
-  <img src="" width="400px">
+  <img src="https://github.com/MarcosWolf/retroFPS/assets/26293082/79017086-9e1c-47a6-8bb8-43961de35903" width="400px">
 </p>
 
 
