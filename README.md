@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="https://github.com/MarcosWolf/retroFPS/assets/26293082/a0807069-33b0-4c1b-b53e-e74e2c34d896">
+    <img src="https://github.com/MarcosWolf/retroFPS/assets/26293082/93bb233e-fa75-408c-bf32-6f58011b07e7">
 </h1>
 
 <h4 align="center"> 
