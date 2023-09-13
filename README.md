@@ -77,6 +77,8 @@
 
    Você pode visualizar o projeto através deste link: <br/>
    <a target="_blank" href="https://retrofps.marcoswolf.com.br">https://retrofps.marcoswolf.com.br</a>
+
+   (Recomendo que utilize uma rede wi-fi para jogar, uso de rede aproximado de 26mb.)
    
 </div>
 
