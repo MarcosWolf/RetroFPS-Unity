@@ -33,13 +33,16 @@
 
 ## 📝 Funcionalidades
 
-### Sistema
-- [X] SFX adicionados.
-
 ### Player:
+- [X] Sistema de pulo
 - [X] Reload de armas
 - [X] Transição na troca de armas
 - [X] Head bobbing ao andar e atirar
+- [X] Efeito de dano e morte do player
+
+### Armas:
+- [X] Cápsulas de balas voando ao atirar.
+- [X] Rastro de bala, porém falta aprimoração.
 
 ### Inimigos:
 - [X] IA de Ataque e Perseguição
