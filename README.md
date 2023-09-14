@@ -33,6 +33,19 @@
 
 ## 📝 Funcionalidades
 
+### Sistema
+- [X] SFX adicionados.
+
+### Player:
+- [X] Reload de armas
+- [X] Transição na troca de armas
+- [X] Head bobbing ao andar e atirar
+
+### Inimigos:
+- [X] IA de Ataque e Perseguição
+
+## Adições:
+
 ### Inimigos:
 - [x] Zombieman
 - [x] Imp
@@ -92,6 +105,19 @@
    
    - Unity
    - C#
+
+</div>
+
+<br />
+
+<div id="creditos">
+   
+   ## ✍️ Créditos
+   
+   - Sprites dos Inimigos Imp, Zombieman e Demon retirados do jogo Doom.
+   - Sprites das armas retirado do mod Brutal Doom.
+   - Sound Effects dos inimigos retirados do jogo Doom.
+   
 
 </div>
 
