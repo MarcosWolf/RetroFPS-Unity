@@ -48,7 +48,7 @@ Você pode visualizar o projeto através deste link: <br/>
 ### Mapa:
 - [X] Mapa de teste
       
-## 🎨 Screenshots
+## Screenshots
 
 <p align="center">
   <img src="https://github.com/MarcosWolf/retroFPS/assets/26293082/28ddc0b0-cd5b-486c-bccb-395499ebdd65" width="400px">
@@ -62,7 +62,7 @@ Você pode visualizar o projeto através deste link: <br/>
 - Sprites das armas retirado do mod Brutal Doom.
 - Sound Effects dos inimigos retirados do jogo Doom.
  
-## 🐺 Autor
+## Autor
 
 <a href="https://www.marcoswolf.com.br/">
 <img style="width:100px" src="https://avatars.githubusercontent.com/u/26293082?v=4" alt=""/>
