@@ -24,30 +24,17 @@ Você pode visualizar o projeto através deste link: <br/>
 - [X] Efeito de dano e morte do player
 
 ### Armas:
+- [x] Shotgun
+- [x] SMG
 - [X] Cápsulas de balas voando ao atirar.
 - [X] Rastro de bala, porém falta aprimoração.
-
-### Inimigos:
-- [X] IA de Ataque e Perseguição
-
-## Adições:
 
 ### Inimigos:
 - [x] Zombieman
 - [x] Imp
 - [x] Demon
+- [X] IA de Ataque e Perseguição
 
-### Armas:
-- [x] Shotgun
-- [x] SMG
-
-### Items:
-- [x] Chaves Azul, vermelha e Amarela
-- [x] Kit médico
-
-### Mapa:
-- [X] Mapa de teste
-      
 ## Screenshots
 
 <p align="center">
