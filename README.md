@@ -1,4 +1,4 @@
-# RetroFPS
+# RetroFPS-Unity
 
 Desenvolvimento de uma engine 2D retrô para um jogo de tiro em primeira pessoa (FPS) semelhante ao Doom, usando a Unity e C#.
 
