@@ -195,7 +195,7 @@ MonoBehaviour:
   enemyName: Demon
   enemySfx: {fileID: 6679748069380117178}
   rb: {fileID: 2294397830879911845}
-  enemySpeed: 10
+  enemySpeed: 12
   enemyPath: []
   currentPath: 0
   projectileOrigin: {fileID: 0}
@@ -207,7 +207,7 @@ MonoBehaviour:
   rangedAttackDistance: 0
   chasePlayerDistance: 60
   nearbySfxDistance: 40
-  attackDelay: 1.3
+  attackDelay: 1.6
   rangedAttackDamage: 0
   meleeAttackDamage: 40
   onChase: 0
@@ -216,8 +216,8 @@ MonoBehaviour:
   isAttacking: 0
   canMove: 0
   hasAttacked: 0
-  totalEnemyHP: 450
-  currentEnemyHP: 450
+  totalEnemyHP: 500
+  currentEnemyHP: 500
   intervalBetweenPath: 3
   intervalCurrentTime: 3
   playerLayer:

@@ -211,7 +211,7 @@ MonoBehaviour:
   rangedAttackDistance: 70
   chasePlayerDistance: 80
   nearbySfxDistance: 5
-  attackDelay: 1.7
+  attackDelay: 2
   rangedAttackDamage: 15
   meleeAttackDamage: 0
   onChase: 0
